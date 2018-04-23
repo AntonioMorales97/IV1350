@@ -10,7 +10,7 @@ import se.kth.iv1350.processofsale.integration.RegistryCreator;
 public class Sale {
 	private CashRegister cashRegister;
 	private Costs costs = new Costs();
-	private RegistryCreator creator = new RegistryCreator();
+	private RegistryCreator creator;
 
 	/**
 	 * Creates a new instance.
@@ -18,7 +18,8 @@ public class Sale {
 	 * @param cashRegister
 	 *            The cash register that the sale will use and update.
 	 */
-	public Sale(CashRegister cashRegister) {
+	public Sale(CashRegister cashRegister, RegistryCreator creator) {
 		this.cashRegister = cashRegister;
+		this.creator = creator; 
 	}
 }
