@@ -1,6 +1,9 @@
 package se.kth.iv1350.processofsale.view;
 
 import se.kth.iv1350.processofsale.controller.*;
+import se.kth.iv1350.processofsale.integration.ItemDTO;
+import se.kth.iv1350.processofsale.model.CurrentInfo;
+import se.kth.iv1350.processofsale.model.Item;
 
 /**
  * This class is a placeholder for the entire view for this application.
@@ -25,5 +28,9 @@ public class View {
 	 */
 	public void sampleExecution() {
 		controller.startNewSale();
+		CurrentInfo testItem = controller.enterItem(2);
+		ItemDTO testDTO = testItem.getItemDTO();
+		System.out.println(testDTO.getName()+" "+testItem.getRunningTotal());
+		
 	}
 }

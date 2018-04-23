@@ -21,8 +21,6 @@ public class Startup {
 		Controller controller = new Controller();
 		View view = new View(controller);
 		view.sampleExecution();
-		System.out.println("Hola"); // Test
-
 	}
 
 }
