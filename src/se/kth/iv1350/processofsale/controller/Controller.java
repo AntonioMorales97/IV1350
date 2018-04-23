@@ -25,11 +25,20 @@ public class Controller {
 	public void startNewSale() {
 		this.sale = new Sale(cashRegister, creator);
 	}
-	
-	public CurrentInfo enterItem (int itemIdentifier){
+
+	/**
+	 * Updates the sale with the item that has the given item identifier and creates
+	 * a <code>CurrentInfo</code> with the desired update.
+	 * 
+	 * @param itemIdentifier
+	 *            An item identifier that is unique and indentifies an item
+	 *            (ItemDTO).
+	 * @return <code>CurrentInfo</code> that was created with the updates.
+	 */
+	public CurrentInfo enterItem(int itemIdentifier) {
 		ItemDTO foundItemDTO = sale.enterItem(itemIdentifier);
 		double runningTotal = sale.getRunningTotal();
-		CurrentInfo currentInfo = new CurrentInfo(foundItemDTO,runningTotal); //this should have runningTotal as well.
+		CurrentInfo currentInfo = new CurrentInfo(foundItemDTO, runningTotal);
 		return currentInfo;
 	}
 }

@@ -1,8 +1,8 @@
 package se.kth.iv1350.processofsale.integration;
 
 /**
- * This class purpose is to find and return items from a database. But since there is no
- * database, the items will probably be stored in this class.
+ * This class purpose is to find and return items from a database. But since
+ * there is no database, the items will probably be stored in this class.
  */
 
 public class ItemRegistry {
@@ -11,6 +11,13 @@ public class ItemRegistry {
 	ItemRegistry() {
 	}
 
+	/**
+	 * Searches for the ItemDTO in the array with the same item identifier.
+	 * 
+	 * @param itemIdentifier
+	 *            Unique identifier to an item.
+	 * @return the ItemDTO that was found. Else it throws an exception.
+	 */
 	public ItemDTO findItem(int itemIdentifier) {
 		for (int i = 0; i < itemDTOs.length; i++) {
 			if (isSameIdentifier(itemDTOs[i], itemIdentifier))
