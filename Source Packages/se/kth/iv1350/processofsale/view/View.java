@@ -28,11 +28,7 @@ public class View {
 	 */
 	public void sampleExecution() {
 		controller.startNewSale();
-		CurrentInfo testItem = controller.enterItem(1);
-		testItem = controller.enterItem(1);
-		testItem = controller.enterItem(1);
-		System.out.println(testItem);
-		testItem = controller.enterItem(2);
+		CurrentInfo testItem = controller.enterItems(1,10);	
 		System.out.println(testItem);
 	}
 }

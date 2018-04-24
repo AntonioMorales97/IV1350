@@ -37,8 +37,15 @@ public class Controller {
 	 */
 	public CurrentInfo enterItem(int itemIdentifier) {
 		ItemDTO foundItemDTO = sale.enterItem(itemIdentifier);
-		double runningTotal = sale.getRunningTotal();
-		CurrentInfo currentInfo = new CurrentInfo(foundItemDTO, runningTotal);
-		return currentInfo;
+		return createCurrentInfo(foundItemDTO);
+	}
+	
+	public CurrentInfo enterItems(int itemIdentifier, int quantity) {
+		ItemDTO foundItemDTO = sale.enterItems(itemIdentifier, quantity);
+		return createCurrentInfo(foundItemDTO);
+	}
+	
+	private CurrentInfo createCurrentInfo(ItemDTO itemDTO) {
+		return new CurrentInfo(itemDTO,sale.getRunningTotal());
 	}
 }

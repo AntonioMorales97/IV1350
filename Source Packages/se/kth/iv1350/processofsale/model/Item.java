@@ -14,6 +14,11 @@ public class Item {
 		this.itemDTO = itemDTO;
 	}
 
+	Item(ItemDTO itemDTO, int quantity) {
+		this.itemDTO = itemDTO;
+		this.quantity = quantity;
+	}
+
 	ItemDTO getItemDTO() {
 		return this.itemDTO;
 	}

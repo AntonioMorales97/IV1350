@@ -44,14 +44,35 @@ public class Sale {
 	 *         identifier.
 	 */
 	public ItemDTO enterItem(int itemIdentifier) {
-		ItemDTO foundItemDTO = findItemDTO(itemIdentifier);
-		Item newItem = new Item(foundItemDTO); // this will be added in a list!
-		this.costs.increaseRunningTotal(newItem);
-		updateItems(newItem);
+		ItemDTO foundItemDTO = getItemDTO(itemIdentifier);
+		Item newItem = new Item(foundItemDTO);
+		updateSale(newItem);
 		return foundItemDTO;
 	}
 
-	private ItemDTO findItemDTO(int itemIdentifier) {
+	/**
+	 * The enterItems-operation. This will update the sale with the correct item and
+	 * the quantity of it.
+	 * 
+	 * @param itemIdentifier
+	 *            Unique for an <code>ItemDTO</code>.
+	 * @param quantity
+	 *            Quantity of items of the same sort that is entered.
+	 * @return the <code>ItemDTO</code> with the given item item identifier.
+	 */
+	public ItemDTO enterItems(int itemIdentifier, int quantity) {
+		ItemDTO foundItemDTO = getItemDTO(itemIdentifier);
+		Item newItem = new Item(foundItemDTO, quantity);
+		updateSale(newItem);
+		return foundItemDTO;
+	}
+
+	private void updateSale(Item newItem) {
+		this.costs.increaseRunningTotal(newItem);
+		updateItems(newItem);
+	}
+
+	private ItemDTO getItemDTO(int itemIdentifier) {
 		ItemRegistry itemReg = creator.getItemReg();
 		ItemDTO foundItemDTO = itemReg.findItem(itemIdentifier);
 		return foundItemDTO;
