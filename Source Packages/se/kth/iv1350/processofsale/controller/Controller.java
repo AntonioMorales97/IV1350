@@ -28,10 +28,10 @@ public class Controller {
 
 	/**
 	 * Updates the sale with the item that has the given item identifier and creates
-	 * a <code>CurrentInfo</code> with the desired update.
+	 * a <code>CurrentInfo</code> with the update.
 	 * 
 	 * @param itemIdentifier
-	 *            An item identifier that is unique and indentifies an item
+	 *            An item identifier that is unique and identifies an item
 	 *            (ItemDTO).
 	 * @return <code>CurrentInfo</code> that was created with the updates.
 	 */
@@ -39,13 +39,23 @@ public class Controller {
 		ItemDTO foundItemDTO = sale.enterItem(itemIdentifier);
 		return createCurrentInfo(foundItemDTO);
 	}
-	
+
+	/**
+	 * Updates the sale with the item and quantity of the item. Creates a
+	 * <code>CurrentInfo</code> with the update.
+	 * 
+	 * @param itemIdentifier
+	 *            Unique for an item.
+	 * @param quantity
+	 *            Number of items that has same identifier.
+	 * @return <code>CurrentInfo</code> that was created with the updates.
+	 */
 	public CurrentInfo enterItems(int itemIdentifier, int quantity) {
 		ItemDTO foundItemDTO = sale.enterItems(itemIdentifier, quantity);
 		return createCurrentInfo(foundItemDTO);
 	}
-	
+
 	private CurrentInfo createCurrentInfo(ItemDTO itemDTO) {
-		return new CurrentInfo(itemDTO,sale.getRunningTotal());
+		return new CurrentInfo(itemDTO, sale.getRunningTotal());
 	}
 }
