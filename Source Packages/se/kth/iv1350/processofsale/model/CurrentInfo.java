@@ -23,6 +23,16 @@ public class CurrentInfo {
 		this.runningTotal = runningTotal;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Entered Item\n");
+		sb.append(this.lastEnteredItem + "\n");
+		sb.append("Running total: " + this.runningTotal);
+		return sb.toString();
+
+	}
+
 	/**
 	 * @return the <code>ItemDTO</code> that is the last entered item.
 	 */

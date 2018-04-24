@@ -14,6 +14,11 @@ public class ItemDTO {
 		this.identifier = identifier;
 	}
 
+	@Override
+	public String toString() {
+		return "Name: " + this.name + "\n" + "Price: " + this.price;
+	}
+
 	/**
 	 * @return The name of the <code>ItemDTO</code>.
 	 */

@@ -29,9 +29,10 @@ public class View {
 	public void sampleExecution() {
 		controller.startNewSale();
 		CurrentInfo testItem = controller.enterItem(1);
+		testItem = controller.enterItem(1);
+		testItem = controller.enterItem(1);
+		System.out.println(testItem);
 		testItem = controller.enterItem(2);
-		ItemDTO testDTO = testItem.getItemDTO();
-		System.out.println(testDTO.getName() + " " + testItem.getRunningTotal());
-
+		System.out.println(testItem);
 	}
 }
