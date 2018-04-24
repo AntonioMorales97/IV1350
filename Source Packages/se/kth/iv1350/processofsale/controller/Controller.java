@@ -5,7 +5,7 @@ import se.kth.iv1350.processofsale.model.CurrentInfo;
 import se.kth.iv1350.processofsale.model.Sale;
 import se.kth.iv1350.processofsale.integration.ItemDTO;
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
-import se.kth.iv1350.processofsale.model.Item;
+
 
 /**
  * The only controller class for this application. Every call from view passes
@@ -57,5 +57,9 @@ public class Controller {
 
 	private CurrentInfo createCurrentInfo(ItemDTO itemDTO) {
 		return new CurrentInfo(itemDTO, sale.getRunningTotal());
+	}
+	
+	public Sale getSale() {
+		return this.sale;
 	}
 }
