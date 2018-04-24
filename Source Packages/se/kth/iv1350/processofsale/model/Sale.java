@@ -2,6 +2,8 @@ package se.kth.iv1350.processofsale.model;
 
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import se.kth.iv1350.processofsale.integration.ItemDTO;
@@ -17,6 +19,7 @@ public class Sale {
 	private CashRegister cashRegister;
 	private Costs costs = new Costs();
 	private RegistryCreator creator;
+	private String date;
 
 	/**
 	 * Creates a new instance.
@@ -30,6 +33,7 @@ public class Sale {
 	public Sale(CashRegister cashRegister, RegistryCreator creator) {
 		this.cashRegister = cashRegister;
 		this.creator = creator;
+		recordDate();
 	}
 
 	/**
@@ -92,6 +96,19 @@ public class Sale {
 
 	private boolean isAlreadyEntered(Item newItem) {
 		return this.enteredItems.contains(newItem);
+	}
+	
+	private void recordDate() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		this.date = dateFormat.format(date).toString();
+	}
+	
+	/**
+	 * @return the date and time
+	 */
+	public String getDate() {
+		return this.date;
 	}
 
 	/**

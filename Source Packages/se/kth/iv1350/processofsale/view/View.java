@@ -2,8 +2,7 @@ package se.kth.iv1350.processofsale.view;
 
 import se.kth.iv1350.processofsale.controller.*;
 import se.kth.iv1350.processofsale.integration.ItemDTO;
-import se.kth.iv1350.processofsale.model.CurrentInfo;
-import se.kth.iv1350.processofsale.model.Item;
+import se.kth.iv1350.processofsale.model.*;
 
 /**
  * This class is a placeholder for the entire view for this application.

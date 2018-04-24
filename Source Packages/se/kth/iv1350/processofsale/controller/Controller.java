@@ -1,8 +1,6 @@
 package se.kth.iv1350.processofsale.controller;
 
-import se.kth.iv1350.processofsale.model.CashRegister;
-import se.kth.iv1350.processofsale.model.CurrentInfo;
-import se.kth.iv1350.processofsale.model.Sale;
+import se.kth.iv1350.processofsale.model.*;
 import se.kth.iv1350.processofsale.integration.ItemDTO;
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
 
