@@ -59,6 +59,15 @@ public class Controller {
 	private CurrentInfo createCurrentInfo(ItemDTO itemDTO) {
 		return new CurrentInfo(itemDTO, sale.getRunningTotal());
 	}
+	
+	/**
+	 * A method to use when all items for the sale are registered.
+	 * @return the total cost of the current <code>Sale</code>.
+	 */
+	public double itemRegistrationDone(){
+		double totalCost = this.sale.getTotal();
+		return totalCost;	
+	}
 
 	/**
 	 * @return the current Sale.

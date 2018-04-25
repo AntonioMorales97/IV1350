@@ -37,10 +37,10 @@ public class Sale {
 	}
 
 	/**
-	 * The enterItem-operation. This will update the sale with the item that has the
-	 * given item identifier, store it in the list as an <code>Item</code>-object or
-	 * increase the quantity of the object by one if it is already stored and update
-	 * the running total.
+	 * The enterItem-operation. This will update the sale with the item that has
+	 * the given item identifier, store it in the list as an <code>Item</code>
+	 * -object or increase the quantity of the object by one if it is already
+	 * stored and update the running total.
 	 * 
 	 * @param itemIdentifier
 	 *            Unique for an <code>ItemDTO</code>.
@@ -55,8 +55,8 @@ public class Sale {
 	}
 
 	/**
-	 * The enterItems-operation. This will update the sale with the correct item and
-	 * the quantity of it.
+	 * The enterItems-operation. This will update the sale with the correct item
+	 * and the quantity of it.
 	 * 
 	 * @param itemIdentifier
 	 *            Unique for an <code>ItemDTO</code>.
@@ -71,15 +71,15 @@ public class Sale {
 		return foundItemDTO;
 	}
 
-	private void updateSale(Item newItem) {
-		this.costs.increaseRunningTotal(newItem);
-		updateItems(newItem);
-	}
-
 	private ItemDTO getItemDTO(int itemIdentifier) {
 		ItemRegistry itemReg = creator.getItemReg();
 		ItemDTO foundItemDTO = itemReg.findItem(itemIdentifier);
 		return foundItemDTO;
+	}
+
+	private void updateSale(Item newItem) {
+		this.costs.increaseRunningTotal(newItem);
+		updateItems(newItem);
 	}
 
 	private void updateItems(Item newItem) {
@@ -97,13 +97,13 @@ public class Sale {
 	private boolean isAlreadyEntered(Item newItem) {
 		return this.enteredItems.contains(newItem);
 	}
-	
+
 	private void recordDate() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		this.date = dateFormat.format(date).toString();
 	}
-	
+
 	/**
 	 * @return the date and time
 	 */
@@ -112,9 +112,18 @@ public class Sale {
 	}
 
 	/**
-	 * @return the running total of this sale which is stored in <code>Costs</code>.
+	 * @return the running total of this sale which is stored in
+	 *         <code>Costs</code>.
 	 */
 	public double getRunningTotal() {
 		return this.costs.getRunningTotal();
+	}
+
+	/**
+	 * @return the total cost.
+	 */
+	public double getTotal() {
+		double totalCost = this.costs.getTotalCost();
+		return totalCost;
 	}
 }

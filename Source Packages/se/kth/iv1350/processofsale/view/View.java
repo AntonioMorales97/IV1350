@@ -29,5 +29,7 @@ public class View {
 		controller.startNewSale();
 		CurrentInfo testItem = controller.enterItems(1,10);	
 		System.out.println(testItem);
+		double totalCost = controller.itemRegistrationDone();
+		System.out.println("Total cost: "+totalCost);
 	}
 }
