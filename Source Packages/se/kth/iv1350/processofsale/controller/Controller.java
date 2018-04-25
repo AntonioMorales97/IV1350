@@ -4,17 +4,20 @@ import se.kth.iv1350.processofsale.model.*;
 import se.kth.iv1350.processofsale.integration.ItemDTO;
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
 
-
 /**
  * The only controller class for this application. Every call from view passes
  * through here and then to the model.
  */
 public class Controller {
 	private CashRegister cashRegister = new CashRegister();
-	private RegistryCreator creator = new RegistryCreator();
+	private RegistryCreator creator;
 	private Sale sale;
 
-	public Controller() {
+	/**
+	 * Creates <code>Controller</code>.
+	 */
+	public Controller(RegistryCreator creator) {
+		this.creator = creator;
 	}
 
 	/**
@@ -25,8 +28,8 @@ public class Controller {
 	}
 
 	/**
-	 * Updates the sale with the item that has the given item identifier and creates
-	 * a <code>CurrentInfo</code> with the update.
+	 * Updates the sale with the item that has the given item identifier and
+	 * creates a <code>CurrentInfo</code> with the update.
 	 * 
 	 * @param itemIdentifier
 	 *            An item identifier that is unique and identifies an item
@@ -56,7 +59,10 @@ public class Controller {
 	private CurrentInfo createCurrentInfo(ItemDTO itemDTO) {
 		return new CurrentInfo(itemDTO, sale.getRunningTotal());
 	}
-	
+
+	/**
+	 * @return the current Sale.
+	 */
 	public Sale getSale() {
 		return this.sale;
 	}
