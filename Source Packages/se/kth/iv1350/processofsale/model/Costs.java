@@ -1,5 +1,6 @@
 package se.kth.iv1350.processofsale.model;
 
+import se.kth.iv1350.processofsale.integration.CustomerDTO;
 import se.kth.iv1350.processofsale.integration.ItemDTO;
 
 /**
@@ -29,5 +30,10 @@ class Costs {
 
 	double getTotalCost() {
 		return this.totalCost;
+	}
+	
+	void enterDiscount(CustomerDTO customer) {
+		double discountPercent = customer.getDiscountPercent();
+		this.totalCost -= this.totalCost*(discountPercent/100);
 	}
 }

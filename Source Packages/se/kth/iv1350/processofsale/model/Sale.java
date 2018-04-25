@@ -6,8 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import se.kth.iv1350.processofsale.integration.ItemDTO;
-import se.kth.iv1350.processofsale.integration.ItemRegistry;
+import se.kth.iv1350.processofsale.integration.*;
 
 /**
  * This class will contain everything a sale should contain and methods to
@@ -37,10 +36,10 @@ public class Sale {
 	}
 
 	/**
-	 * The enterItem-operation. This will update the sale with the item that has
-	 * the given item identifier, store it in the list as an <code>Item</code>
-	 * -object or increase the quantity of the object by one if it is already
-	 * stored and update the running total.
+	 * The enterItem-operation. This will update the sale with the item that has the
+	 * given item identifier, store it in the list as an <code>Item</code> -object
+	 * or increase the quantity of the object by one if it is already stored and
+	 * update the running total.
 	 * 
 	 * @param itemIdentifier
 	 *            Unique for an <code>ItemDTO</code>.
@@ -55,8 +54,8 @@ public class Sale {
 	}
 
 	/**
-	 * The enterItems-operation. This will update the sale with the correct item
-	 * and the quantity of it.
+	 * The enterItems-operation. This will update the sale with the correct item and
+	 * the quantity of it.
 	 * 
 	 * @param itemIdentifier
 	 *            Unique for an <code>ItemDTO</code>.
@@ -112,8 +111,7 @@ public class Sale {
 	}
 
 	/**
-	 * @return the running total of this sale which is stored in
-	 *         <code>Costs</code>.
+	 * @return the running total of this sale which is stored in <code>Costs</code>.
 	 */
 	public double getRunningTotal() {
 		return this.costs.getRunningTotal();
@@ -125,5 +123,25 @@ public class Sale {
 	public double getTotal() {
 		double totalCost = this.costs.getTotalCost();
 		return totalCost;
+	}
+
+	/**
+	 * Updates the sale with a discount if a customer is found with the given ID
+	 * number.
+	 * 
+	 * @param id
+	 *            ID number as a <code>String</code>.
+	 * @return the updated total cost for the sale.
+	 */
+	public double discountRequest(String id) {
+		CustomerDTO customer = getCustomerDTO(id);
+		this.costs.enterDiscount(customer);
+		return this.costs.getTotalCost();
+	}
+
+	private CustomerDTO getCustomerDTO(String id) {
+		CustomerRegistry customerReg = creator.getCustomerReg();
+		CustomerDTO foundCustomer = customerReg.findCustomer(id);
+		return foundCustomer;
 	}
 }

@@ -6,8 +6,6 @@ import se.kth.iv1350.processofsale.model.*;
 
 /**
  * This class is a placeholder for the entire view for this application.
- * 
- *
  */
 public class View {
 	private Controller controller;
@@ -27,9 +25,15 @@ public class View {
 	 */
 	public void sampleExecution() {
 		controller.startNewSale();
-		CurrentInfo testItem = controller.enterItems(1,10);	
+		CurrentInfo testItem = controller.enterItems(1, 10);
 		System.out.println(testItem);
 		double totalCost = controller.itemRegistrationDone();
-		System.out.println("Total cost: "+totalCost);
+		System.out.println("Total cost: " + totalCost);
+		try {
+			totalCost = controller.discountRequest("9706024453");
+		} catch (IllegalArgumentException e) {
+			System.err.println("No customer was found.");
+		}
+		System.out.println("New total cost: " + totalCost);
 	}
 }

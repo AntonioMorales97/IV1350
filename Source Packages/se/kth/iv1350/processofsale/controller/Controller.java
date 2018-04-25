@@ -28,8 +28,8 @@ public class Controller {
 	}
 
 	/**
-	 * Updates the sale with the item that has the given item identifier and
-	 * creates a <code>CurrentInfo</code> with the update.
+	 * Updates the sale with the item that has the given item identifier and creates
+	 * a <code>CurrentInfo</code> with the update.
 	 * 
 	 * @param itemIdentifier
 	 *            An item identifier that is unique and identifies an item
@@ -59,14 +59,26 @@ public class Controller {
 	private CurrentInfo createCurrentInfo(ItemDTO itemDTO) {
 		return new CurrentInfo(itemDTO, sale.getRunningTotal());
 	}
-	
+
 	/**
 	 * A method to use when all items for the sale are registered.
+	 * 
 	 * @return the total cost of the current <code>Sale</code>.
 	 */
-	public double itemRegistrationDone(){
+	public double itemRegistrationDone() {
 		double totalCost = this.sale.getTotal();
-		return totalCost;	
+		return totalCost;
+	}
+
+	/**
+	 * Updates the total cost of the sale with a discount if a customer is found
+	 * with the given ID number.
+	 * 
+	 * @return the updated total cost.
+	 */
+	public double discountRequest(String id) {
+		double newTotalCost = this.sale.discountRequest(id);
+		return newTotalCost;
 	}
 
 	/**
