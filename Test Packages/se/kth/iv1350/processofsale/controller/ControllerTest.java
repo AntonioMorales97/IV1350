@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import se.kth.iv1350.processofsale.integration.ItemDTO;
+import se.kth.iv1350.processofsale.integration.RegistryCreator;
 import se.kth.iv1350.processofsale.model.CurrentInfo;
 import se.kth.iv1350.processofsale.model.Sale;
 
@@ -18,7 +19,8 @@ public class ControllerTest {
 
 	@Before
 	public void setUp() {
-		this.controller = new Controller();
+		RegistryCreator creator = new RegistryCreator();
+		this.controller = new Controller(creator);
 		this.controller.startNewSale();
 
 	}
