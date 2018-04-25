@@ -35,8 +35,10 @@ public class Controller {
 	 *            An item identifier that is unique and identifies an item
 	 *            (ItemDTO).
 	 * @return <code>CurrentInfo</code> that was created with the updates.
+	 * @throws InvalidIdentifierException
+	 *             when the given item identifier is invalid.
 	 */
-	public CurrentInfo enterItem(int itemIdentifier) {
+	public CurrentInfo enterItem(int itemIdentifier) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = sale.enterItem(itemIdentifier);
 		return createCurrentInfo(foundItemDTO);
 	}
@@ -50,8 +52,10 @@ public class Controller {
 	 * @param quantity
 	 *            Number of items that has same identifier.
 	 * @return <code>CurrentInfo</code> that was created with the updates.
+	 * @throws InvalidIdentifierException
+	 *             when the given item identifier is invalid.
 	 */
-	public CurrentInfo enterItems(int itemIdentifier, int quantity) {
+	public CurrentInfo enterItems(int itemIdentifier, int quantity) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = sale.enterItems(itemIdentifier, quantity);
 		return createCurrentInfo(foundItemDTO);
 	}
@@ -75,8 +79,10 @@ public class Controller {
 	 * with the given ID number.
 	 * 
 	 * @return the updated total cost.
+	 * @throws InvalidIdentifierException
+	 *             if no customer with the given ID could be found.
 	 */
-	public double discountRequest(String id) {
+	public double discountRequest(String id) throws InvalidIdentifierException {
 		double newTotalCost = this.sale.discountRequest(id);
 		return newTotalCost;
 	}

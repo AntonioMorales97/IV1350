@@ -1,14 +1,15 @@
 package se.kth.iv1350.processofsale.view;
 
-import se.kth.iv1350.processofsale.controller.*;
-import se.kth.iv1350.processofsale.integration.ItemDTO;
-import se.kth.iv1350.processofsale.model.*;
+import se.kth.iv1350.processofsale.controller.Controller;
+import se.kth.iv1350.processofsale.model.CurrentInfo;
+import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
 
 /**
  * This class is a placeholder for the entire view for this application.
  */
 public class View {
 	private Controller controller;
+	private ErrorHandler errorHandler = new ErrorHandler();
 
 	/**
 	 * Creates an instance of View
@@ -25,15 +26,24 @@ public class View {
 	 */
 	public void sampleExecution() {
 		controller.startNewSale();
-		CurrentInfo testItem = controller.enterItems(1, 10);
-		System.out.println(testItem);
+		try {
+			CurrentInfo testItem = controller.enterItems(1, 10);
+			System.out.println(testItem);
+		} catch (InvalidIdentifierException exc) {
+			sendException(exc.getMessage(), exc);
+		}
+
 		double totalCost = controller.itemRegistrationDone();
 		System.out.println("Total cost: " + totalCost);
 		try {
-			totalCost = controller.discountRequest("9706024453");
-		} catch (IllegalArgumentException e) {
-			System.err.println("No customer was found.");
+			totalCost = controller.discountRequest("0123456789");
+		} catch (InvalidIdentifierException exc) {
+			sendException(exc.getMessage(), exc);
 		}
 		System.out.println("New total cost: " + totalCost);
+	}
+
+	private void sendException(String exceptionMsg, Exception exception) {
+		errorHandler.showError(exceptionMsg);
 	}
 }

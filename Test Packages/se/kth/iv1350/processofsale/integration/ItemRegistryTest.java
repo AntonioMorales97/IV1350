@@ -8,28 +8,26 @@ import org.junit.Test;
 
 import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
 
-public class CustomerRegistryTest {
-	
-	
-	private CustomerRegistry customerReg;
-	private final String VALID_ID = "0123456789";
-	private final String INVALID_ID = "-1";
+public class ItemRegistryTest {
+	private ItemRegistry itemReg;
+	private final int BANANA_ID = 1;
+	private final int INVALID_ID = -1;
 
 	@Before
 	public void setUp() {
-		this.customerReg = new CustomerRegistry();
+		this.itemReg = new ItemRegistry();
 	}
 
 	@After
 	public void tearDown() {
-		this.customerReg = null;
+		this.itemReg = null;
 	}
 
 	@Test
-	public void testFindCustomer() {
+	public void testFindItem() {
 		try {
-			CustomerDTO customerDTO = customerReg.findCustomer(VALID_ID);
-			assertNotNull("ItemDTO is null", customerDTO);
+			ItemDTO itemDTO = itemReg.findItem(BANANA_ID);
+			assertNotNull("ItemDTO is null", itemDTO);
 		} catch (InvalidIdentifierException e) {
 			fail("Got exception.");
 			e.printStackTrace();
@@ -39,9 +37,7 @@ public class CustomerRegistryTest {
 
 	@Test(expected = InvalidIdentifierException.class)
 	public void testInvalidItemIdentifier() throws InvalidIdentifierException {
-		customerReg.findCustomer(INVALID_ID);
+		itemReg.findItem(INVALID_ID);
 	}
 
 }
-
-
