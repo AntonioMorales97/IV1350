@@ -28,8 +28,8 @@ public class Controller {
 	}
 
 	/**
-	 * Updates the sale with the item that has the given item identifier and creates
-	 * a <code>CurrentInfo</code> with the update.
+	 * Updates the sale with the item that has the given item identifier and
+	 * creates a <code>CurrentInfo</code> with the update.
 	 * 
 	 * @param itemIdentifier
 	 *            An item identifier that is unique and identifies an item
@@ -85,6 +85,22 @@ public class Controller {
 	public double discountRequest(String id) throws InvalidIdentifierException {
 		double newTotalCost = this.sale.discountRequest(id);
 		return newTotalCost;
+	}
+
+	
+	public double pay(double paidAmount) throws InvalidAmountException {
+		double change = this.sale.pay(paidAmount); //Should also update inventory after this. Not finished!
+		Receipt receipt = this.sale.getReceipt();
+		System.out.println(receipt); //SHOULD NOT BE HERE. JUST TEST
+		return change;
+	}
+
+	/**
+	 * @return the total amount in the cash register since the start of the
+	 *         program.
+	 */
+	public double getTotalCashRegister() {
+		return this.cashRegister.getTotal();
 	}
 
 	/**

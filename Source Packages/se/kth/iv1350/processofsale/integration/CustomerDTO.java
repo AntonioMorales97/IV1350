@@ -14,6 +14,10 @@ public class CustomerDTO {
 		this.discountPercent = discountPercent;
 	}
 
+	public String toString() {
+		return "Name: " + this.name + "\n" + "Discount: " + this.discountPercent + " %";
+	}
+
 	String getId() {
 		return this.id;
 	}

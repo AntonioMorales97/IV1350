@@ -2,6 +2,7 @@ package se.kth.iv1350.processofsale.view;
 
 import se.kth.iv1350.processofsale.controller.Controller;
 import se.kth.iv1350.processofsale.model.CurrentInfo;
+import se.kth.iv1350.processofsale.model.InvalidAmountException;
 import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
 
 /**
@@ -41,6 +42,15 @@ public class View {
 			sendException(exc.getMessage(), exc);
 		}
 		System.out.println("New total cost: " + totalCost);
+		try {
+			double change = controller.pay(105);
+			//System.out.println("Change: " + String.format("%.2f", change));
+
+		} catch (InvalidAmountException e) {
+			sendException(e.getMessage(), e);
+		}
+		double totalInCashRegister = controller.getTotalCashRegister();
+		System.out.println("Total in cash register: " + totalInCashRegister);
 	}
 
 	private void sendException(String exceptionMsg, Exception exception) {

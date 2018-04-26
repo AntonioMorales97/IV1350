@@ -18,6 +18,14 @@ public class Item {
 		this.itemDTO = itemDTO;
 		this.quantity = quantity;
 	}
+	
+	@Override
+	public String toString(){
+		StringBuilder itemString = new StringBuilder();
+		itemString.append(this.itemDTO + "\n");
+		itemString.append("Quantity: "+this.quantity);
+		return itemString.toString();
+	}
 
 	ItemDTO getItemDTO() {
 		return this.itemDTO;
