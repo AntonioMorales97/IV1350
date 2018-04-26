@@ -9,8 +9,7 @@ import org.junit.Test;
 import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
 
 public class CustomerRegistryTest {
-	
-	
+
 	private CustomerRegistry customerReg;
 	private final String VALID_ID = "0123456789";
 	private final String INVALID_ID = "-1";
@@ -31,8 +30,8 @@ public class CustomerRegistryTest {
 			CustomerDTO customerDTO = customerReg.findCustomer(VALID_ID);
 			assertNotNull("ItemDTO is null", customerDTO);
 		} catch (InvalidIdentifierException e) {
-			fail("Got exception.");
 			e.printStackTrace();
+			fail("Got exception.");
 		}
 
 	}
@@ -43,5 +42,3 @@ public class CustomerRegistryTest {
 	}
 
 }
-
-

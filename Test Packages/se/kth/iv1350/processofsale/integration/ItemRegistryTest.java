@@ -29,8 +29,8 @@ public class ItemRegistryTest {
 			ItemDTO itemDTO = itemReg.findItem(BANANA_ID);
 			assertNotNull("ItemDTO is null", itemDTO);
 		} catch (InvalidIdentifierException e) {
-			fail("Got exception.");
 			e.printStackTrace();
+			fail("Got exception.");
 		}
 
 	}

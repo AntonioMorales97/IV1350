@@ -6,9 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
-
-
 public class RegistryCreatorTest {
 	private RegistryCreator creator;
 
@@ -25,14 +22,13 @@ public class RegistryCreatorTest {
 	@Test
 	public void testGetItemReg() {
 		ItemRegistry expReg = this.creator.getItemReg();
-		assertTrue("Failed to get ItemRegistry.",expReg instanceof ItemRegistry);
+		assertTrue("Failed to get ItemRegistry.", expReg instanceof ItemRegistry);
 	}
 
 	@Test
 	public void testGetCustomerReg() {
 		CustomerRegistry expReg = this.creator.getCustomerReg();
-		assertTrue("Failed to get CustomerRegistry.",expReg instanceof CustomerRegistry);
+		assertTrue("Failed to get CustomerRegistry.", expReg instanceof CustomerRegistry);
 	}
-	
-}
 
+}
