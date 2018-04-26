@@ -17,7 +17,7 @@ import se.kth.iv1350.processofsale.model.Sale;
 public class ControllerTest {
 
 	private Controller controller;
-	private int banana = 1;
+	private int VALID_ITEM_ID = 1;
 	private int quantity = 10;
 
 	@Before
@@ -35,16 +35,24 @@ public class ControllerTest {
 
 	@Test
 	public void testStartNewSale() {
-		Sale expResult = this.controller.getSale();
-		assertNotNull("Sale is null.", expResult);
-
+		try {
+			this.controller.startNewSale();
+			this.controller.enterItem(VALID_ITEM_ID);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			fail("Failed to create a sale.");
+		} catch (InvalidIdentifierException e) {
+			e.printStackTrace();
+			fail("Got exception.");
+		}
+		
 	}
 
 	@Test
 	public void testEnterItem() {
 		CurrentInfo currentInfo;
 		try {
-			currentInfo = this.controller.enterItem(banana);
+			currentInfo = this.controller.enterItem(VALID_ITEM_ID);
 			assertNotNull("CurrentInfo is null.");
 			ItemDTO itemDTO = currentInfo.getItemDTO();
 			assertNotNull("ItemDTO is null.", itemDTO);
@@ -60,11 +68,22 @@ public class ControllerTest {
 	@Test
 	public void testEnterItems() {
 		try {
-			CurrentInfo currentInfo = this.controller.enterItems(banana, quantity);
+			CurrentInfo currentInfo = this.controller.enterItems(VALID_ITEM_ID, quantity);
 			assertNotNull("CurrentInfo is null.", currentInfo);
 		} catch (InvalidIdentifierException e) {
 			fail("Got exception.");
 			e.getStackTrace();
+		}
+	}
+	
+	@Test (expected = NullPointerException.class)
+	public void testEndSale() {
+		try {
+		this.controller.endSale();
+		this.controller.enterItem(VALID_ITEM_ID);
+		} catch(InvalidIdentifierException e) {
+			e.printStackTrace();
+			fail("Got exception.");
 		}
 	}
 
