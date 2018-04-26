@@ -88,9 +88,9 @@ public class Controller {
 	}
 
 	/**
-	 * @return the current Sale.
+	 * Ends the current sale.
 	 */
-	public Sale getSale() {
-		return this.sale;
+	public void endSale() {
+		this.sale = null;
 	}
 }
