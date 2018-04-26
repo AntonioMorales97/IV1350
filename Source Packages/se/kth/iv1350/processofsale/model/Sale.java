@@ -18,6 +18,7 @@ public class Sale {
 	private CashRegister cashRegister;
 	private Costs costs = new Costs();
 	private RegistryCreator creator;
+	private CustomerDTO customer;
 	private String date;
 
 	/**
@@ -144,6 +145,7 @@ public class Sale {
 	public double discountRequest(String id) throws InvalidIdentifierException {
 		CustomerDTO customer = getCustomerDTO(id);
 		this.costs.enterDiscount(customer);
+		this.customer = customer;
 		return this.costs.getTotalCost();
 	}
 
