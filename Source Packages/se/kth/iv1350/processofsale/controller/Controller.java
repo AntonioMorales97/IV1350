@@ -2,22 +2,25 @@ package se.kth.iv1350.processofsale.controller;
 
 import se.kth.iv1350.processofsale.model.*;
 import se.kth.iv1350.processofsale.integration.ItemDTO;
+import se.kth.iv1350.processofsale.integration.Printer;
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
 
 /**
- * The only controller class for this application. Every call from view passes
- * through here and then to the model.
+ * This class is responsible for locating the action methods needed to execute
+ * the action called from the view.
  */
 public class Controller {
 	private CashRegister cashRegister = new CashRegister();
 	private RegistryCreator creator;
+	private Printer printer;
 	private Sale sale;
 
 	/**
 	 * Creates <code>Controller</code>.
 	 */
-	public Controller(RegistryCreator creator) {
+	public Controller(RegistryCreator creator, Printer printer) {
 		this.creator = creator;
+		this.printer = printer;
 	}
 
 	/**
@@ -28,8 +31,8 @@ public class Controller {
 	}
 
 	/**
-	 * Updates the sale with the item that has the given item identifier and
-	 * creates a <code>CurrentInfo</code> with the update.
+	 * Updates the sale with the item that has the given item identifier and creates
+	 * a <code>CurrentInfo</code> with the update.
 	 * 
 	 * @param itemIdentifier
 	 *            An item identifier that is unique and identifies an item
@@ -87,17 +90,24 @@ public class Controller {
 		return newTotalCost;
 	}
 
-	
+	/**
+	 * Pays the sale with the given paid amount and prints out a receipt.
+	 * 
+	 * @param paidAmount
+	 *            The amount given by the customer.
+	 * @return the change.
+	 * @throws InvalidAmountException
+	 *             if the paid amount is not enough to pay the sale.
+	 */
 	public double pay(double paidAmount) throws InvalidAmountException {
-		double change = this.sale.pay(paidAmount); //Should also update inventory after this. Not finished!
+		double change = this.sale.pay(paidAmount);
 		Receipt receipt = this.sale.getReceipt();
-		System.out.println(receipt); //SHOULD NOT BE HERE. JUST TEST
+		this.printer.printReceipt(receipt);
 		return change;
 	}
 
 	/**
-	 * @return the total amount in the cash register since the start of the
-	 *         program.
+	 * @return the total amount in the cash register since the start of the program.
 	 */
 	public double getTotalCashRegister() {
 		return this.cashRegister.getTotal();
