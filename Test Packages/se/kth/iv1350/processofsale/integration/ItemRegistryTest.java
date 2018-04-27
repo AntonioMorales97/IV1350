@@ -27,7 +27,7 @@ public class ItemRegistryTest {
 	public void testFindItem() {
 		try {
 			ItemDTO itemDTO = itemReg.findItem(BANANA_ID);
-			assertNotNull("ItemDTO is null", itemDTO);
+			assertNotNull("ItemDTO is null.", itemDTO);
 		} catch (InvalidIdentifierException e) {
 			e.printStackTrace();
 			fail("Got exception.");

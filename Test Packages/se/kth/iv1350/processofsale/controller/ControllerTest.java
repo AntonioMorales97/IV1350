@@ -3,12 +3,11 @@ package se.kth.iv1350.processofsale.controller;
 import static org.junit.Assert.*;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import se.kth.iv1350.processofsale.integration.ItemDTO;
+import se.kth.iv1350.processofsale.integration.Printer;
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
 import se.kth.iv1350.processofsale.model.CurrentInfo;
 import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
@@ -23,7 +22,8 @@ public class ControllerTest {
 	@Before
 	public void setUp() {
 		RegistryCreator creator = new RegistryCreator();
-		this.controller = new Controller(creator);
+		Printer printer = new Printer();
+		this.controller = new Controller(creator, printer);
 		this.controller.startNewSale();
 
 	}
@@ -45,7 +45,7 @@ public class ControllerTest {
 			e.printStackTrace();
 			fail("Got exception.");
 		}
-		
+
 	}
 
 	@Test
@@ -75,13 +75,13 @@ public class ControllerTest {
 			e.getStackTrace();
 		}
 	}
-	
-	@Test (expected = NullPointerException.class)
+
+	@Test(expected = NullPointerException.class)
 	public void testEndSale() {
 		try {
-		this.controller.endSale();
-		this.controller.enterItem(VALID_ITEM_ID);
-		} catch(InvalidIdentifierException e) {
+			this.controller.endSale();
+			this.controller.enterItem(VALID_ITEM_ID);
+		} catch (InvalidIdentifierException e) {
 			e.printStackTrace();
 			fail("Got exception.");
 		}
