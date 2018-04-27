@@ -3,7 +3,6 @@ package se.kth.iv1350.processofsale.model;
 import java.util.List;
 
 import se.kth.iv1350.processofsale.integration.CustomerDTO;
-import se.kth.iv1350.processofsale.integration.ItemDTO;
 
 public class Receipt {
 	private static int receiptNumber = 0;
@@ -19,6 +18,7 @@ public class Receipt {
 		this.date = date;
 		this.costs = costs;
 		this.payment = payment;
+		Receipt.receiptNumber++;
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class Receipt {
 
 	private String buildReceipt() {
 		StringBuilder receipt = new StringBuilder();
-		receipt.append("RECEIPT #" + this.receiptNumber + "\n");
+		receipt.append("RECEIPT #" + Receipt.receiptNumber + "\n");
 		receipt.append(frame('=') + "\n");
 		receipt.append(this.date + "\n");
 		receipt.append(itemsString());
@@ -45,8 +45,10 @@ public class Receipt {
 		double totalCost = this.costs.getTotalCost();
 		double paidAmount = this.payment.getPaidAmount();
 		double change = this.payment.getChange();
+		double tax = this.costs.getTax();
 		payment.append("Running total: " + runningTotal + "\n");
 		payment.append("Total cost: " + totalCost + "\n");
+		payment.append("VAT: " + tax*100 + " %\n");
 		payment.append("Paid: " + paidAmount + "\n");
 		payment.append("Change: " + String.format("%.2f", change) + "\n");
 		return payment.toString();

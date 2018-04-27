@@ -17,8 +17,8 @@ public class ErrorHandler {
 	
 	private String buildFrame(String msg) {
 		StringBuilder frame = new StringBuilder();
-		for(int i = 0; i<msg.length();i++) {
-			frame.append("--");
+		for(int i = 0; i<20;i++) {
+			frame.append("-");
 		}
 		return frame.toString();
 	}

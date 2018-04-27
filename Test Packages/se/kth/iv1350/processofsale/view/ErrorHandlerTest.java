@@ -31,12 +31,16 @@ public class ErrorHandlerTest {
 	public void testErrorMessage() {
 		ErrorHandler errorHandler = new ErrorHandler();
 		String errorMsg = "invalid something";
-		String errorFrame = "----------------------------------";
 		errorHandler.showError(errorMsg);
-		String expMsg = "ERROR\n" + errorFrame + "\n" + errorMsg + "\n" + errorFrame;
+		CharSequence header = "ERROR";
+		CharSequence frame = "-----";
+		CharSequence expMsg = errorMsg;
 		String result = errContent.toString();
-		assertTrue("Wrong printout.", result.contains(expMsg));
-
+		boolean containsHeader = result.contains(header);
+		boolean containsFrame = result.contains(frame);
+		boolean containsMsg = result.contains(expMsg);
+		boolean correctErrorMsgFormat = containsHeader && containsFrame && containsMsg;
+		assertTrue("Wrong printout.", correctErrorMsgFormat);
 	}
 
 }
