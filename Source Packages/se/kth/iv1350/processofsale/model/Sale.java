@@ -38,18 +38,18 @@ public class Sale {
 	}
 
 	/**
-	 * The enterItem-operation. This will update the sale with the item that has
-	 * the given item identifier, store it in the list as an <code>Item</code>
-	 * -object or increase the quantity of the object by one if it is already
-	 * stored and update the running total.
+	 * The enterItem-operation. This will update the sale with the item that has the
+	 * given item identifier, store it in the list as an <code>Item</code> -object
+	 * or increase the quantity of the object by one if it is already stored and
+	 * update the running total.
 	 * 
 	 * @param itemIdentifier
 	 *            Unique for an <code>ItemDTO</code>.
 	 * @return the <code>ItemDTO</code> that was found from the given item
 	 *         identifier.
 	 * @throws InvalidIdentifierException
-	 *             if no <code>ItemDTO</code> with the given item identifier
-	 *             could be found.
+	 *             if no <code>ItemDTO</code> with the given item identifier could
+	 *             be found.
 	 */
 	public ItemDTO enterItem(int itemIdentifier) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = getItemDTO(itemIdentifier);
@@ -59,8 +59,8 @@ public class Sale {
 	}
 
 	/**
-	 * The enterItems-operation. This will update the sale with the correct item
-	 * and the quantity of it.
+	 * The enterItems-operation. This will update the sale with the correct item and
+	 * the quantity of it.
 	 * 
 	 * @param itemIdentifier
 	 *            Unique for an <code>ItemDTO</code>.
@@ -68,8 +68,8 @@ public class Sale {
 	 *            Quantity of items of the same sort that is entered.
 	 * @return the <code>ItemDTO</code> with the given item item identifier.
 	 * @throws InvalidIdentifierException
-	 *             if no <code>ItemDTO</code> with the given item identifier
-	 *             could be found.
+	 *             if no <code>ItemDTO</code> with the given item identifier could
+	 *             be found.
 	 */
 	public ItemDTO enterItems(int itemIdentifier, int quantity) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = getItemDTO(itemIdentifier);
@@ -119,8 +119,7 @@ public class Sale {
 	}
 
 	/**
-	 * @return the running total of this sale which is stored in
-	 *         <code>Costs</code>.
+	 * @return the running total of this sale which is stored in <code>Costs</code>.
 	 */
 	public double getRunningTotal() {
 		return this.costs.getRunningTotal();
@@ -142,8 +141,7 @@ public class Sale {
 	 *            ID number as a <code>String</code>.
 	 * @return the updated total cost for the sale.
 	 * @throws InvalidIdentifierException
-	 *             if no <code>CustomerDTO</code> with the given ID could be
-	 *             found.
+	 *             if no <code>CustomerDTO</code> with the given ID could be found.
 	 */
 	public double discountRequest(String id) throws InvalidIdentifierException {
 		CustomerDTO customer = getCustomerDTO(id);
@@ -159,8 +157,8 @@ public class Sale {
 	}
 
 	/**
-	 * Calculates if the given payment is valid for this sale and updates the
-	 * cash register for this sale.
+	 * Calculates if the given payment is valid for this sale and updates the cash
+	 * register for this sale.
 	 * 
 	 * @param paidAmount
 	 *            The paid amount from the customer.
@@ -170,20 +168,32 @@ public class Sale {
 	 */
 	public double pay(double paidAmount) throws InvalidAmountException {
 		double totalCost = getTotal();
-		this.cashPayment = new CashPayment(paidAmount, totalCost, this.cashRegister);
+		if (this.cashPayment == null) {
+			this.cashPayment = new CashPayment(paidAmount, totalCost, this.cashRegister);
+		} else {
+			this.cashPayment.addPaidAmount(paidAmount);
+		}
 		double change = this.cashPayment.getChange();
 		if (change < 0) {
 			throw new InvalidAmountException("Need more payment. Current balance:", change);
 		}
 		this.cashPayment.updateCashRegister();
+		// ****************************************updateAccounting&Inventory..ReceiptToAcc, Itemlist to inventory..
 		return change;
 	}
 
 	/**
 	 * @return the created receipt of the sale.
+	 * @throws InvalidAmountException
+	 *             In case the paid amount for this sale is less than the total
+	 *             cost.
 	 */
-	public Receipt getReceipt() {
-		Receipt receipt = new Receipt(customer, enteredItems, date, costs, cashPayment);
-		return receipt;
+	public Receipt getReceipt() throws InvalidAmountException {
+		if (this.cashPayment.getPaidAmount() >= this.costs.getTotalCost()) {
+			Receipt receipt = new Receipt(customer, enteredItems, date, costs, cashPayment);
+			return receipt;
+		}
+		throw new InvalidAmountException("Need more payment to create receipt. Current balance: ",
+				this.cashPayment.getChange());
 	}
 }

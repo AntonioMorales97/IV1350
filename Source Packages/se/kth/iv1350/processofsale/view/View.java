@@ -4,6 +4,7 @@ import se.kth.iv1350.processofsale.controller.Controller;
 import se.kth.iv1350.processofsale.model.CurrentInfo;
 import se.kth.iv1350.processofsale.model.InvalidAmountException;
 import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
+import se.kth.iv1350.processofsale.util.ErrorLogHandler;
 
 /**
  * This class is a placeholder for the entire view for this application.
@@ -11,6 +12,7 @@ import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
 public class View {
 	private Controller controller;
 	private ErrorHandler errorHandler = new ErrorHandler();
+	private ErrorLogHandler errorLogHandler = new ErrorLogHandler();
 
 	/**
 	 * Creates an instance of View
@@ -43,17 +45,22 @@ public class View {
 		}
 		System.out.println("New total cost: " + totalCost);
 		try {
-			double change = controller.pay(105);
-			//System.out.println("Change: " + String.format("%.2f", change));
+			controller.pay(100);
 
 		} catch (InvalidAmountException e) {
 			sendException(e.getMessage(), e);
 		}
-		double totalInCashRegister = controller.getTotalCashRegister();
-		System.out.println("Total in cash register: " + totalInCashRegister);
+		try {
+			controller.pay(5);
+		} catch (InvalidAmountException e) {
+			sendException(e.getMessage(), e);
+		}
+		controller.endSale();
+
 	}
 
 	private void sendException(String exceptionMsg, Exception exception) {
 		errorHandler.showError(exceptionMsg);
+		errorLogHandler.logError(exception);
 	}
 }
