@@ -32,6 +32,10 @@ class Costs {
 		return this.totalCost;
 	}
 	
+	double getTax() {
+		return this.tax.getTax();
+	}
+	
 	void enterDiscount(CustomerDTO customer) {
 		double discountPercent = customer.getDiscountPercent();
 		this.totalCost -= this.totalCost*(discountPercent/100);

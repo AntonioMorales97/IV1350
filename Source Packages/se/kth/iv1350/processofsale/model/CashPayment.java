@@ -16,6 +16,11 @@ class CashPayment {
 		this.cashRegister = cashRegister;
 	}
 
+	void addPaidAmount(double amount) {
+		this.paidAmount += amount;
+		this.change = paidAmount - totalCost;
+	}
+
 	double getPaidAmount() {
 		return this.paidAmount;
 	}
@@ -29,6 +34,7 @@ class CashPayment {
 	}
 
 	void updateCashRegister() {
-		this.cashRegister.addPayment(this);
+		if (this.change > 0)
+			this.cashRegister.addPayment(this);
 	}
 }
