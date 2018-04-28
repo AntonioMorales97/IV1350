@@ -10,14 +10,15 @@ import se.kth.iv1350.processofsale.integration.ItemDTO;
 import se.kth.iv1350.processofsale.integration.Printer;
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
 import se.kth.iv1350.processofsale.model.CurrentInfo;
+import se.kth.iv1350.processofsale.model.InvalidAmountException;
 import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
-import se.kth.iv1350.processofsale.model.Sale;
 
 public class ControllerTest {
 
 	private Controller controller;
 	private int VALID_ITEM_ID = 1;
-	private int quantity = 10;
+	private int QUANTITY = 10;
+	private String VALID_CUSTOMER_ID = "0123456789";
 
 	@Before
 	public void setUp() {
@@ -68,12 +69,59 @@ public class ControllerTest {
 	@Test
 	public void testEnterItems() {
 		try {
-			CurrentInfo currentInfo = this.controller.enterItems(VALID_ITEM_ID, quantity);
+			CurrentInfo currentInfo = this.controller.enterItems(VALID_ITEM_ID, QUANTITY);
 			assertNotNull("CurrentInfo is null.", currentInfo);
 		} catch (InvalidIdentifierException e) {
 			fail("Got exception.");
 			e.getStackTrace();
 		}
+	}
+
+	@Test
+	public void testItemRegistrationDone() {
+		try {
+			this.controller.enterItem(VALID_ITEM_ID);
+			double totalCost = this.controller.itemRegistrationDone();
+			boolean expTotalCost = totalCost > 0;
+			assertTrue("Wrong total cost.", expTotalCost);
+		} catch (InvalidIdentifierException e) {
+			e.printStackTrace();
+			fail("Got exception.");
+		}
+
+	}
+
+	@Test
+	public void testDiscountRequest() {
+		try {
+			this.controller.enterItem(VALID_ITEM_ID);
+			double totalCostWithoutDiscount = this.controller.itemRegistrationDone();
+			double totalCostWithDiscount = this.controller.discountRequest(VALID_CUSTOMER_ID);
+			boolean exp = totalCostWithDiscount < totalCostWithoutDiscount;
+			assertTrue("Wrong total cost.", exp);
+		} catch (InvalidIdentifierException e) {
+			e.printStackTrace();
+			fail("Got exception.");
+		}
+	}
+
+	@Test
+	public void testPay() {
+		try {
+			this.controller.enterItem(VALID_ITEM_ID);
+			double totalCost = this.controller.itemRegistrationDone();
+			double paidAmount = 20;
+			double actChange = this.controller.pay(paidAmount);
+			double expChange = paidAmount - totalCost;
+			assertEquals("Wrong actuall change.", expChange, actChange, 0.0f);
+		} catch (InvalidIdentifierException e) {
+			e.printStackTrace();
+			fail("Got exception.");
+		} catch (InvalidAmountException e) {
+			e.printStackTrace();
+			fail("Got exception.");
+		}
+
 	}
 
 	@Test(expected = NullPointerException.class)

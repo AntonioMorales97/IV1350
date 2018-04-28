@@ -72,4 +72,32 @@ public class SaleTest {
 		}
 	}
 
+	@Test
+	public void testPay() {
+		try {
+			this.sale.enterItem(VALID_ITEM_ID);
+			double totalCost = this.sale.getTotal();
+			double paidAmount = 15;
+			double expChange = paidAmount-totalCost;
+			double actChange = this.sale.pay(paidAmount);
+			assertEquals("Wrong change.",expChange,actChange,0.0f);
+		} catch(InvalidIdentifierException e) {
+			e.printStackTrace();
+			fail("Got exception.");
+		} catch (InvalidAmountException e) {
+			e.printStackTrace();
+			fail("Got exception.");
+		}
+	}
+	
+	@Test (expected = InvalidAmountException.class)
+	public void testInvalidPay() throws InvalidAmountException {
+		try {
+			this.sale.enterItem(VALID_ITEM_ID);
+			this.sale.pay(0);
+		} catch (InvalidIdentifierException e) {
+			e.printStackTrace();
+			fail("Got exception.");
+		}
+	}
 }
