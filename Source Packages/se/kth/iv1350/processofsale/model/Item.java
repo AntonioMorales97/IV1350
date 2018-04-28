@@ -6,7 +6,7 @@ import se.kth.iv1350.processofsale.integration.ItemDTO;
  * This class will represent an item and contain the ItemDTO of it and also the
  * quantity of the item.
  */
-public class Item {
+class Item {
 	private ItemDTO itemDTO;
 	private int quantity = 1;
 
