@@ -10,6 +10,8 @@ class Costs {
 	private TaxDTO tax = new TaxDTO();
 	private double runningTotal = 0;
 	private double totalCost = 0;
+	private double valueAddedTax = 0;
+	private double discountAmount = 0;
 
 	Costs() {
 	}
@@ -18,10 +20,15 @@ class Costs {
 		ItemDTO itemDTO = item.getItemDTO();
 		this.runningTotal += itemDTO.getPrice() * item.getQuantity();
 		updateTotalCost();
+		updateValueAddedTax();
 	}
 
 	private void updateTotalCost() {
 		this.totalCost = this.runningTotal + (this.runningTotal * this.tax.getTax());
+	}
+	
+	private void updateValueAddedTax() {
+		this.valueAddedTax = this.runningTotal * this.tax.getTax();
 	}
 
 	double getRunningTotal() {
@@ -36,8 +43,17 @@ class Costs {
 		return this.tax.getTax();
 	}
 	
+	double getValueAddedTax() {
+		return this.valueAddedTax;
+	}
+	
+	double getDiscountAmount() {
+		return this.discountAmount;
+	}
+	
 	void enterDiscount(CustomerDTO customer) {
 		double discountPercent = customer.getDiscountPercent();
-		this.totalCost -= this.totalCost*(discountPercent/100);
+		this.discountAmount = this.totalCost*(discountPercent/100);
+		this.totalCost -= this.discountAmount;
 	}
 }

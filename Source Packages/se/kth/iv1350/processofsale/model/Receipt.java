@@ -46,9 +46,12 @@ public class Receipt {
 		double paidAmount = this.payment.getPaidAmount();
 		double change = this.payment.getChange();
 		double tax = this.costs.getTax();
+		double valueAddedTax = this.costs.getValueAddedTax();
+		double discountAmount = this.costs.getDiscountAmount();
 		payment.append("Running total: " + runningTotal + "\n");
+		payment.append("VAT: " + valueAddedTax+" ("+tax*100 + " %)\n");
+		payment.append("Discount: "+ String.format("%.2f",discountAmount)+"\n");
 		payment.append("Total cost: " + totalCost + "\n");
-		payment.append("VAT: " + tax*100 + " %\n");
 		payment.append("Paid: " + paidAmount + "\n");
 		payment.append("Change: " + String.format("%.2f", change) + "\n");
 		return payment.toString();

@@ -36,13 +36,18 @@ public class ReceiptTest {
 			boolean containsTotal = receiptString.contains(totalCost);
 			CharSequence runningTotal = String.valueOf(this.testSale.getRunningTotal());
 			boolean containsRunningTotal = receiptString.contains(runningTotal);
+			String discount = "Discount: ";
+			String valueAddedTax = "VAT: ";
+			boolean containsDiscount = receiptString.contains(discount);
+			boolean containsVAT = receiptString.contains(valueAddedTax);
 			CharSequence date = String.valueOf(this.testSale.getDate());
 			boolean containsDate = receiptString.contains(date);
 			CharSequence itemName = item.getName();
 			CharSequence itemPrice = String.valueOf(item.getPrice());
 			boolean containsItemInfo = receiptString.contains(itemName) && receiptString.contains(itemPrice);
 			boolean receiptHeader = receiptString.contains("RECEIPT");
-			boolean validReceipt = containsTotal && containsRunningTotal && containsDate && containsItemInfo && receiptHeader;
+			boolean validReceipt = containsTotal && containsRunningTotal && containsDate && containsItemInfo
+					&& receiptHeader && containsDiscount && containsVAT;
 			assertTrue("Wrong receipt format.", validReceipt);
 		} catch (InvalidIdentifierException e) {
 			e.printStackTrace();
