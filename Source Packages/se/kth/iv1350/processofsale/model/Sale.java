@@ -162,7 +162,7 @@ public class Sale {
 	 * 
 	 * @param paidAmount
 	 *            The paid amount from the customer.
-	 * @return the change.
+	 * @return the change after the valid payment.
 	 * @throws InvalidAmountException
 	 *             if the given amount is not enough.
 	 */
@@ -178,7 +178,8 @@ public class Sale {
 			throw new InvalidAmountException("Need more payment. Current balance:", change);
 		}
 		this.cashPayment.updateCashRegister();
-		// ****************************************updateAccounting&Inventory..ReceiptToAcc, Itemlist to inventory..
+		// ****************************************updateAccounting&Inventory..ReceiptToAcc,
+		// Itemlist to inventory..
 		return change;
 	}
 
@@ -189,11 +190,22 @@ public class Sale {
 	 *             cost.
 	 */
 	public Receipt getReceipt() throws InvalidAmountException {
-		if (this.cashPayment.getPaidAmount() >= this.costs.getTotalCost()) {
+		if (validPayment()) {
 			Receipt receipt = new Receipt(customer, enteredItems, date, costs, cashPayment);
 			return receipt;
 		}
 		throw new InvalidAmountException("Need more payment to create receipt. Current balance: ",
 				this.cashPayment.getChange());
+	}
+
+	private boolean validPayment() throws InvalidAmountException {
+		if (this.cashPayment == null) {
+			throw new InvalidAmountException("Need payment to create receipt.", getTotal());
+		} else if (this.cashPayment.getPaidAmount() >= getTotal()) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 }
