@@ -100,4 +100,16 @@ public class SaleTest {
 			fail("Got exception.");
 		}
 	}
+	
+	@Test (expected = InvalidAmountException.class)
+	public void testInvalidReceipt() throws InvalidAmountException {
+		try {
+			this.sale.enterItem(VALID_ITEM_ID);
+			this.sale.getReceipt();
+		} catch (InvalidIdentifierException e) {
+			e.printStackTrace();
+			fail("Got exception.");
+		}
+		
+	}
 }
