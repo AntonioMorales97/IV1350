@@ -178,8 +178,6 @@ public class Sale {
 			throw new InvalidAmountException("Need more payment. Current balance:", change);
 		}
 		this.cashPayment.updateCashRegister();
-		// ****************************************updateAccounting&Inventory..ReceiptToAcc,
-		// Itemlist to inventory..
 		return change;
 	}
 
@@ -207,5 +205,15 @@ public class Sale {
 			return false;
 		}
 
+	}
+
+	private void updateAccounting(Receipt receipt) {
+		AccountingRegistry accountingReg = this.creator.getAccountingReg();
+		// Do something with receipt
+	}
+
+	private void updateInventory() {
+		InventoryRegistry inventoryReg = this.creator.getInventoryReg();
+		// Do something with the item list.
 	}
 }
