@@ -32,28 +32,28 @@ public class View {
 		try {
 			CurrentInfo testItem = controller.enterItems(1, 10);
 			System.out.println(testItem);
-		} catch (InvalidIdentifierException exc) {
-			sendException(exc.getMessage(), exc);
+		} catch (InvalidIdentifierException exception) {
+			sendException(exception.getMessage(), exception);
 		}
 
 		double totalCost = controller.itemRegistrationDone();
 		System.out.println("Total cost: " + totalCost);
 		try {
 			totalCost = controller.discountRequest("0123456789");
-		} catch (InvalidIdentifierException exc) {
-			sendException(exc.getMessage(), exc);
+		} catch (InvalidIdentifierException exception) {
+			sendException(exception.getMessage(), exception);
 		}
 		System.out.println("New total cost: " + totalCost);
 		try {
 			controller.pay(100);
 
-		} catch (InvalidAmountException e) {
-			sendException(e.getMessage(), e);
+		} catch (InvalidAmountException exception) {
+			sendException(exception.getMessage(), exception);
 		}
 		try {
 			controller.pay(5);
-		} catch (InvalidAmountException e) {
-			sendException(e.getMessage(), e);
+		} catch (InvalidAmountException exception) {
+			sendException(exception.getMessage(), exception);
 		}
 		controller.endSale();
 
