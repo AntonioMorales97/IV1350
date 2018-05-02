@@ -3,3 +3,43 @@ Exception 2018/05/02 14:45:24
 Need more payment. Current balance:-0,80
 ====================
 
+Exception 2018/05/02 17:23:17
+====================
+Need more payment. Current balance:-0,80
+====================
+
+Exception 2018/05/02 17:28:03
+====================
+Need more payment. Current balance:-15,92
+====================
+
+Exception 2018/05/02 17:32:22
+====================
+Need more payment. Current balance:-15,92
+====================
+
+Exception 2018/05/02 17:33:53
+====================
+Need more payment. Current balance:-15,92
+====================
+
+Exception 2018/05/02 17:34:04
+====================
+Need more payment. Current balance:-15,92
+====================
+
+Exception 2018/05/02 17:35:39
+====================
+Need more payment. Current balance:-15,92
+====================
+
+Exception 2018/05/02 17:36:09
+====================
+Need more payment. Current balance:-15,92
+====================
+
+Exception 2018/05/02 17:37:11
+====================
+Need more payment. Current balance:-15,92
+====================
+
