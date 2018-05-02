@@ -30,5 +30,17 @@ public class RegistryCreatorTest {
 		CustomerRegistry expReg = this.creator.getCustomerReg();
 		assertTrue("Failed to get CustomerRegistry.", expReg instanceof CustomerRegistry);
 	}
+	
+	@Test
+	public void testGetAccountingReg() {
+		AccountingRegistry expReg = this.creator.getAccountingReg();
+		assertTrue("Failed to get AccountingRegistry.", expReg instanceof AccountingRegistry);
+	}
+
+	@Test
+	public void testGetInventoryReg() {
+		InventoryRegistry expReg = this.creator.getInventoryReg();
+		assertTrue("Failed to get InventoryRegistry.", expReg instanceof InventoryRegistry);
+	}
 
 }

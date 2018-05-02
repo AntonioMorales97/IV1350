@@ -55,19 +55,21 @@ public class PrinterTest {
 		}
 
 		String result = this.outContent.toString();
-		CharSequence totalCost = String.valueOf(sale.getTotal());
+		CharSequence totalCost = String.format("%.2f", sale.getTotal());
 		boolean containsTotal = result.contains(totalCost);
+		assertTrue("Wrong total cost format printed out.", containsTotal);
 		CharSequence runningTotal = String.valueOf(sale.getRunningTotal());
 		boolean containsRunningTotal = result.contains(runningTotal);
+		assertTrue("Wrong running total format printed out.", containsRunningTotal);
 		CharSequence date = String.valueOf(sale.getDate());
 		boolean containsDate = result.contains(date);
+		assertTrue("Wrong date format printed out.", containsDate);
 		CharSequence itemName = item.getName();
 		CharSequence itemPrice = String.valueOf(item.getPrice());
 		boolean containsItemInfo = result.contains(itemName) && result.contains(itemPrice);
+		assertTrue("Wrong item info format printed out.", containsItemInfo);
 		boolean receiptHeader = result.contains("RECEIPT");
-		boolean validPrint = containsTotal && containsRunningTotal && containsDate && containsItemInfo && receiptHeader;
-		assertTrue("Wrong receipt format was printed out.", validPrint);
-
+		assertTrue("Wrong receipt header printed out.", receiptHeader);
 	}
 
 }
