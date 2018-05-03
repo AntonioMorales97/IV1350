@@ -37,10 +37,11 @@ public class ErrorHandlerTest {
 		CharSequence expMsg = errorMsg;
 		String result = errContent.toString();
 		boolean containsHeader = result.contains(header);
+		assertTrue("Wrong header.", containsHeader);
 		boolean containsFrame = result.contains(frame);
+		assertTrue("Does not contains frame.", containsFrame);
 		boolean containsMsg = result.contains(expMsg);
-		boolean correctErrorMsgFormat = containsHeader && containsFrame && containsMsg;
-		assertTrue("Wrong printout.", correctErrorMsgFormat);
+		assertTrue("Does not contain expected error message.", containsMsg);
 	}
 
 }
