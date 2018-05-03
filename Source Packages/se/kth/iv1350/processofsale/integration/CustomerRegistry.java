@@ -28,7 +28,6 @@ public class CustomerRegistry {
 				return customers[i];
 			}
 		}
-
 		throw new InvalidIdentifierException("Invalid ID");
 	}
 
