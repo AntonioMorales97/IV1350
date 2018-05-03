@@ -1,5 +1,7 @@
 package se.kth.iv1350.processofsale.view;
 
+import java.io.IOException;
+
 import se.kth.iv1350.processofsale.controller.Controller;
 import se.kth.iv1350.processofsale.model.CurrentInfo;
 import se.kth.iv1350.processofsale.model.InvalidAmountException;
@@ -20,7 +22,7 @@ public class View {
 	 * @param controller
 	 *            The controller that will run all operations.
 	 */
-	public View(Controller controller) {
+	public View(Controller controller) throws IOException{
 		this.controller = controller;
 	}
 
