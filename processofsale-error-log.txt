@@ -1,0 +1,35 @@
+Exception 2018/05/03 13:12:35
+====================
+Need more payment. Current balance:-15,92
+====================
+
+Exception 2018/05/03 13:56:01
+====================
+Need more payment. Current balance:-15,92
+====================
+
+Exception 2018/05/03 13:57:15
+====================
+Need more payment. Current balance:-15,92
+====================
+
+Exception 2018/05/03 13:57:40
+====================
+Invalid ID
+====================
+
+Exception 2018/05/03 13:58:29
+====================
+Invalid item identifier.
+====================
+
+Exception 2018/05/03 13:59:29
+====================
+Need more payment. Current balance:-15,92
+====================
+
+Exception 2018/05/03 14:00:27
+====================
+Need more payment. Current balance:-15,92
+====================
+
