@@ -175,7 +175,7 @@ public class Sale {
 		}
 		double change = this.cashPayment.getChange();
 		if (change < 0) {
-			throw new InvalidAmountException("Need more payment. Current balance:", change);
+			throw new InvalidAmountException("Need more payment. Current balance:", change); //return change;
 		}
 		this.cashPayment.updateCashRegister();
 		return change;

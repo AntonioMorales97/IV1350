@@ -24,7 +24,7 @@ public class Controller {
 	}
 
 	/**
-	 * Creates a new Sale instance that will represent the current sale.
+	 * Creates a new Sale instance that will represent the current ongoing sale.
 	 */
 	public void startNewSale() {
 		this.sale = new Sale(cashRegister, creator);
@@ -100,7 +100,7 @@ public class Controller {
 	 *             if the paid amount is not enough to pay the sale.
 	 */
 	public double pay(double paidAmount) throws InvalidAmountException {
-		double change = this.sale.pay(paidAmount);
+		double change = this.sale.pay(paidAmount); //if change < 0, write to errorhandler and return change.
 		Receipt receipt = this.sale.getReceipt();
 		this.printer.printReceipt(receipt);
 		return change;
