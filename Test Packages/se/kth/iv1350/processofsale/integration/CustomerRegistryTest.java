@@ -37,7 +37,7 @@ public class CustomerRegistryTest {
 	}
 
 	@Test(expected = InvalidIdentifierException.class)
-	public void testInvalidItemIdentifier() throws InvalidIdentifierException {
+	public void testInvalidID() throws InvalidIdentifierException {
 		customerReg.findCustomer(INVALID_ID);
 	}
 

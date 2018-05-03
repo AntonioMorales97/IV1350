@@ -18,13 +18,12 @@ public class ErrorLogHandler {
 	/**
 	 * Creates a <code>PrintWriter</code> to a file, which is the file that the
 	 * exceptions will be logged.
+	 * 
+	 * @throws IOException
+	 *             when failed to open the log file.
 	 */
-	public ErrorLogHandler() {
-		try {
-			this.writer = new PrintWriter(new FileWriter(LOG_FILE_NAME, true));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public ErrorLogHandler() throws IOException {
+		this.writer = new PrintWriter(new FileWriter(LOG_FILE_NAME, true));
 	}
 
 	/**
@@ -39,8 +38,11 @@ public class ErrorLogHandler {
 		errorRapport.append(getFrame() + "\r\n");
 		String errorMsg = exc.getMessage();
 		errorRapport.append(errorMsg + "\r\n");
-		errorRapport.append(getFrame() + "\r\n");
+		errorRapport.append(getFrame());
 		writer.println(errorRapport);
+		writer.println("Exception stack trace: ");
+		exc.printStackTrace(writer);
+		writer.println();
 		writer.close();
 	}
 

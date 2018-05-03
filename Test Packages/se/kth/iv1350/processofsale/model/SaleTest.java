@@ -102,7 +102,7 @@ public class SaleTest {
 	}
 	
 	@Test (expected = InvalidAmountException.class)
-	public void testInvalidReceipt() throws InvalidAmountException {
+	public void testInvalidGetReceipt() throws InvalidAmountException {
 		try {
 			this.sale.enterItem(VALID_ITEM_ID);
 			this.sale.getReceipt();
