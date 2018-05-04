@@ -27,7 +27,7 @@ public class ReceiptTest {
 
 	@Test
 	public void testReceipt() {
-		try {
+		
 			ItemDTO item = this.testSale.enterItem(VALID_ITEM_ID);
 			this.testSale.pay(20);
 			Receipt receipt = this.testSale.getReceipt();
@@ -38,11 +38,9 @@ public class ReceiptTest {
 			CharSequence runningTotal = String.valueOf(this.testSale.getRunningTotal());
 			boolean containsRunningTotal = receiptString.contains(runningTotal);
 			assertTrue("Wrong running total format.", containsRunningTotal);
-			String discount = "Discount: ";
 			String valueAddedTax = "VAT: ";
-			boolean containsDiscount = receiptString.contains(discount);
 			boolean containsVAT = receiptString.contains(valueAddedTax);
-			assertTrue("Wrong discount and/or VAT format.", containsDiscount && containsVAT);
+			assertTrue("Wrong VAT format.", containsVAT);
 			CharSequence date = String.valueOf(this.testSale.getDate());
 			boolean containsDate = receiptString.contains(date);
 			assertTrue("Wrong date format.", containsDate);
@@ -52,13 +50,7 @@ public class ReceiptTest {
 			assertTrue("Wrong item info format.", containsItemInfo);
 			boolean receiptHeader = receiptString.contains("RECEIPT");
 			assertTrue("Wrong receipt header format.", receiptHeader);
-		} catch (InvalidIdentifierException e) {
-			e.printStackTrace();
-			fail("Got exception.");
-		} catch (InvalidAmountException e) {
-			e.printStackTrace();
-			fail("Got exception");
-		}
+		
 	}
 
 }

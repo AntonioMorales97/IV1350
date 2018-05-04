@@ -18,17 +18,16 @@ public class Sale {
 	private CashRegister cashRegister;
 	private Costs costs = new Costs();
 	private RegistryCreator creator;
-	private CustomerDTO customer;
 	private CashPayment cashPayment;
 	private String date;
 
 	/**
-	 * Creates a new instance.
+	 * Creates a new instance of <code>Sale</code>.
 	 * 
 	 * @param cashRegister
-	 *            The cash register that the sale will use and update.
+	 *            The {@link CashRegister} that the sale will use and update.
 	 * @param creator
-	 *            The registry creator that is needed to get the important
+	 *            The {@link RegistryCreator} that is needed to get the important
 	 *            registers.
 	 */
 	public Sale(CashRegister cashRegister, RegistryCreator creator) {
@@ -39,19 +38,16 @@ public class Sale {
 
 	/**
 	 * The enterItem-operation. This will update the sale with the item that has the
-	 * given item identifier, store it in the list as an <code>Item</code> -object
-	 * or increase the quantity of the object by one if it is already stored and
-	 * update the running total.
+	 * given item identifier, store it in the list as an {@link Item}-object or
+	 * increase the quantity of the object by one if it is already stored and update
+	 * the running total.
 	 * 
 	 * @param itemIdentifier
-	 *            Unique for an <code>ItemDTO</code>.
-	 * @return the <code>ItemDTO</code> that was found from the given item
-	 *         identifier.
-	 * @throws InvalidIdentifierException
-	 *             if no <code>ItemDTO</code> with the given item identifier could
-	 *             be found.
+	 *            Unique for an {@link ItemDTO}.
+	 * @return a {@link ItemDTO} if one was found from the given item identifier.
+	 *         Else it returns <code>null</code>.
 	 */
-	public ItemDTO enterItem(int itemIdentifier) throws InvalidIdentifierException {
+	public ItemDTO enterItem(int itemIdentifier) {
 		ItemDTO foundItemDTO = getItemDTO(itemIdentifier);
 		Item newItem = new Item(foundItemDTO);
 		updateSale(newItem);
@@ -63,22 +59,20 @@ public class Sale {
 	 * the quantity of it.
 	 * 
 	 * @param itemIdentifier
-	 *            Unique for an <code>ItemDTO</code>.
+	 *            Unique for an {@link ItemDTO}.
 	 * @param quantity
 	 *            Quantity of items of the same sort that is entered.
-	 * @return the <code>ItemDTO</code> with the given item item identifier.
-	 * @throws InvalidIdentifierException
-	 *             if no <code>ItemDTO</code> with the given item identifier could
-	 *             be found.
+	 * @return a {@link ItemDTO} if it has the given item identifier. Else it
+	 *         returns <code>null</code>.
 	 */
-	public ItemDTO enterItems(int itemIdentifier, int quantity) throws InvalidIdentifierException {
+	public ItemDTO enterItems(int itemIdentifier, int quantity) {
 		ItemDTO foundItemDTO = getItemDTO(itemIdentifier);
 		Item newItem = new Item(foundItemDTO, quantity);
 		updateSale(newItem);
 		return foundItemDTO;
 	}
 
-	private ItemDTO getItemDTO(int itemIdentifier) throws InvalidIdentifierException {
+	private ItemDTO getItemDTO(int itemIdentifier) {
 		ItemRegistry itemReg = creator.getItemReg();
 		ItemDTO foundItemDTO = itemReg.findItem(itemIdentifier);
 		return foundItemDTO;
@@ -119,41 +113,18 @@ public class Sale {
 	}
 
 	/**
-	 * @return the running total of this sale which is stored in <code>Costs</code>.
+	 * @return the running total of this sale.
 	 */
 	public double getRunningTotal() {
 		return this.costs.getRunningTotal();
 	}
 
 	/**
-	 * @return the total cost.
+	 * @return the total cost of this sale with taxes included.
 	 */
 	public double getTotal() {
 		double totalCost = this.costs.getTotalCost();
 		return totalCost;
-	}
-
-	/**
-	 * Updates the sale with a discount if a customer is found with the given ID
-	 * number.
-	 * 
-	 * @param id
-	 *            ID number as a <code>String</code>.
-	 * @return the updated total cost for the sale.
-	 * @throws InvalidIdentifierException
-	 *             if no <code>CustomerDTO</code> with the given ID could be found.
-	 */
-	public double discountRequest(String id) throws InvalidIdentifierException {
-		CustomerDTO customer = getCustomerDTO(id);
-		this.costs.enterDiscount(customer);
-		this.customer = customer;
-		return this.costs.getTotalCost();
-	}
-
-	private CustomerDTO getCustomerDTO(String id) throws InvalidIdentifierException {
-		CustomerRegistry customerReg = creator.getCustomerReg();
-		CustomerDTO foundCustomer = customerReg.findCustomer(id);
-		return foundCustomer;
 	}
 
 	/**
@@ -162,11 +133,9 @@ public class Sale {
 	 * 
 	 * @param paidAmount
 	 *            The paid amount from the customer.
-	 * @return the change after the valid payment.
-	 * @throws InvalidAmountException
-	 *             if the given amount is not enough.
+	 * @return the change after the payment.
 	 */
-	public double pay(double paidAmount) throws InvalidAmountException {
+	public double pay(double paidAmount) {
 		double totalCost = getTotal();
 		if (this.cashPayment == null) {
 			this.cashPayment = new CashPayment(paidAmount, totalCost, this.cashRegister);
@@ -175,45 +144,19 @@ public class Sale {
 		}
 		double change = this.cashPayment.getChange();
 		if (change < 0) {
-			throw new InvalidAmountException("Need more payment. Current balance:", change); //return change;
+			return change;
 		}
 		this.cashPayment.updateCashRegister();
 		return change;
 	}
 
 	/**
-	 * @return the created receipt of the sale.
-	 * @throws InvalidAmountException
-	 *             In case the paid amount for this sale is less than the total
-	 *             cost.
+	 * @return the created {@link Receipt} for the sale.
 	 */
-	public Receipt getReceipt() throws InvalidAmountException {
-		if (validPayment()) {
-			Receipt receipt = new Receipt(customer, enteredItems, date, costs, cashPayment);
-			return receipt;
-		}
-		throw new InvalidAmountException("Need more payment to create receipt. Current balance: ",
-				this.cashPayment.getChange());
-	}
-
-	private boolean validPayment() throws InvalidAmountException {
-		if (this.cashPayment == null) {
-			throw new InvalidAmountException("Need payment to create receipt.", getTotal());
-		} else if (this.cashPayment.getPaidAmount() >= getTotal()) {
-			return true;
-		} else {
-			return false;
-		}
+	public Receipt getReceipt() {
+		Receipt receipt = new Receipt(enteredItems, date, costs, cashPayment);
+		return receipt;
 
 	}
 
-	private void updateAccounting(Receipt receipt) {
-		AccountingRegistry accountingReg = this.creator.getAccountingReg();
-		// Do something with receipt
-	}
-
-	private void updateInventory() {
-		InventoryRegistry inventoryReg = this.creator.getInventoryReg();
-		// Do something with the item list.
-	}
 }

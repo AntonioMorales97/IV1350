@@ -6,9 +6,6 @@ package se.kth.iv1350.processofsale.integration;
 
 public class RegistryCreator {
 	private ItemRegistry itemRegistry = new ItemRegistry();
-	private CustomerRegistry customerRegistry = new CustomerRegistry();
-	private AccountingRegistry accountingRegistry = new AccountingRegistry();
-	private InventoryRegistry inventoryRegistry = new InventoryRegistry();
 
 	/**
 	 * Creates a <code>RegistryCreator</code>.
@@ -17,31 +14,10 @@ public class RegistryCreator {
 	}
 
 	/**
-	 * @return the created <code>ItemRegistry</code>.
+	 * @return the created {@link ItemRegistry}.
 	 */
 	public ItemRegistry getItemReg() {
 		return this.itemRegistry;
-	}
-
-	/**
-	 * @return the <code>CustomerRegistry</code>.
-	 */
-	public CustomerRegistry getCustomerReg() {
-		return this.customerRegistry;
-	}
-	
-	/**
-	 * @return the <code>AccountingRegistry</code>.
-	 */
-	public AccountingRegistry getAccountingReg() {
-		return this.accountingRegistry;
-	}
-	
-	/**
-	 * @return the <code>InventoryRegistry</code>.
-	 */
-	public InventoryRegistry getInventoryReg() {
-		return this.inventoryRegistry;
 	}
 
 }

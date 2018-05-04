@@ -29,7 +29,7 @@ public class ItemTest {
 
 	@Test
 	public void testQuantities() {
-		try {
+		
 			ItemDTO itemDTO = itemReg.findItem(VALID_ITEM_ID);
 			Item item = new Item(itemDTO);
 			int expQuantity = 1;
@@ -39,24 +39,18 @@ public class ItemTest {
 			item.increaseQuantity(4);
 			actQuantity = item.getQuantity();
 			assertEquals("Failed to increase quantity.", expQuantity, actQuantity);
-		} catch (InvalidIdentifierException e) {
-			e.printStackTrace();
-			fail("Got excpetion.");
-		}
+		
 	}
 
 	@Test
 	public void testEquals() {
-		try {
+		
 			ItemDTO itemDTO = itemReg.findItem(VALID_ITEM_ID);
 			Item firstItemInstance = new Item(itemDTO);
 			Item secondItemInstance = new Item(itemDTO,10);
 			boolean expTrue = firstItemInstance.equals(secondItemInstance);
 			assertTrue("Objects of the same type are not seen as equal.",expTrue);
-		} catch (InvalidIdentifierException e) {
-			e.printStackTrace();
-			fail("Got excpeption.");
-		}
+		
 		
 	}
 

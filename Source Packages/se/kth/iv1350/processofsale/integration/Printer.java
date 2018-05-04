@@ -15,7 +15,7 @@ public class Printer {
 	 * it prints to <code>System.out</code>.
 	 * 
 	 * @param receipt
-	 *            The receipt for the finished sale.
+	 *            The {@link Receipt} for the finished sale.
 	 */
 	public void printReceipt(Receipt receipt) {
 		System.out.println(receipt);

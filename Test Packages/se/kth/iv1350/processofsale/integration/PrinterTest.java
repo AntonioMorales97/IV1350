@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.kth.iv1350.processofsale.model.CashRegister;
-import se.kth.iv1350.processofsale.model.InvalidAmountException;
-import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
 import se.kth.iv1350.processofsale.model.Receipt;
 import se.kth.iv1350.processofsale.model.Sale;
 
@@ -40,20 +38,10 @@ public class PrinterTest {
 		CashRegister cashReg = new CashRegister();
 		RegistryCreator creator = new RegistryCreator();
 		Sale sale = new Sale(cashReg, creator);
-		ItemDTO item = null;
-		try {
-			item = sale.enterItem(VALID_ITEM_ID);
-			sale.pay(20);
-			Receipt receipt = sale.getReceipt();
-			printer.printReceipt(receipt);
-		} catch (InvalidAmountException e) {
-			e.printStackTrace();
-			fail("Got exception.");
-		} catch (InvalidIdentifierException e) {
-			e.printStackTrace();
-			fail("Got exception.");
-		}
-
+		ItemDTO item = sale.enterItem(VALID_ITEM_ID);
+		sale.pay(20);
+		Receipt receipt = sale.getReceipt();
+		printer.printReceipt(receipt);
 		String result = this.outContent.toString();
 		CharSequence totalCost = String.format("%.2f", sale.getTotal());
 		boolean containsTotal = result.contains(totalCost);

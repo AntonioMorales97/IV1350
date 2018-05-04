@@ -6,12 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
-
 public class ItemRegistryTest {
 	private ItemRegistry itemReg;
 	private final int BANANA_ID = 1;
-	private final int INVALID_ID = -1;
 
 	@Before
 	public void setUp() {
@@ -25,19 +22,7 @@ public class ItemRegistryTest {
 
 	@Test
 	public void testFindItem() {
-		try {
-			ItemDTO itemDTO = itemReg.findItem(BANANA_ID);
-			assertNotNull("ItemDTO is null.", itemDTO);
-		} catch (InvalidIdentifierException e) {
-			e.printStackTrace();
-			fail("Got exception.");
-		}
-
+		ItemDTO itemDTO = itemReg.findItem(BANANA_ID);
+		assertNotNull("ItemDTO is null.", itemDTO);
 	}
-
-	@Test(expected = InvalidIdentifierException.class)
-	public void testInvalidItemIdentifier() throws InvalidIdentifierException {
-		itemReg.findItem(INVALID_ID);
-	}
-
 }

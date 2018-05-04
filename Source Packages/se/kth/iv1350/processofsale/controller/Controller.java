@@ -16,7 +16,14 @@ public class Controller {
 	private Sale sale;
 
 	/**
-	 * Creates <code>Controller</code>.
+	 * Creates an instance of <code>Controller</code>.
+	 * 
+	 * @param creator
+	 *            The {@link RegistryCreator} that holds the needed registers for
+	 *            the sale.
+	 * @param printer
+	 *            A {@link Printer} instance that is an interface to a printer that
+	 *            does not exist.
 	 */
 	public Controller(RegistryCreator creator, Printer printer) {
 		this.creator = creator;
@@ -24,7 +31,8 @@ public class Controller {
 	}
 
 	/**
-	 * Creates a new Sale instance that will represent the current ongoing sale.
+	 * Creates a new {@link Sale} instance that will represent the current ongoing
+	 * sale.
 	 */
 	public void startNewSale() {
 		this.sale = new Sale(cashRegister, creator);
@@ -32,33 +40,28 @@ public class Controller {
 
 	/**
 	 * Updates the sale with the item that has the given item identifier and creates
-	 * a <code>CurrentInfo</code> with the update.
+	 * a {@link CurrentInfo} with the update.
 	 * 
 	 * @param itemIdentifier
-	 *            An item identifier that is unique and identifies an item
-	 *            (ItemDTO).
-	 * @return <code>CurrentInfo</code> that was created with the updates.
-	 * @throws InvalidIdentifierException
-	 *             when the given item identifier is invalid.
+	 *            An item identifier that is unique and identifies an item.
+	 * @return {@link CurrentInfo} that was created with the updates.
 	 */
-	public CurrentInfo enterItem(int itemIdentifier) throws InvalidIdentifierException {
+	public CurrentInfo enterItem(int itemIdentifier) {
 		ItemDTO foundItemDTO = sale.enterItem(itemIdentifier);
 		return createCurrentInfo(foundItemDTO);
 	}
 
 	/**
-	 * Updates the sale with the item and quantity of the item. Creates a
-	 * <code>CurrentInfo</code> with the update.
+	 * Updates the sale with the item with the given item identifier and also with
+	 * the quantity of that item. Creates a {@link CurrentInfo} with the update.
 	 * 
 	 * @param itemIdentifier
-	 *            Unique for an item.
+	 *            Unique for an item and identifies an item.
 	 * @param quantity
 	 *            Number of items that has same identifier.
-	 * @return <code>CurrentInfo</code> that was created with the updates.
-	 * @throws InvalidIdentifierException
-	 *             when the given item identifier is invalid.
+	 * @return the {@link CurrentInfo} that was created with the updates.
 	 */
-	public CurrentInfo enterItems(int itemIdentifier, int quantity) throws InvalidIdentifierException {
+	public CurrentInfo enterItems(int itemIdentifier, int quantity) {
 		ItemDTO foundItemDTO = sale.enterItems(itemIdentifier, quantity);
 		return createCurrentInfo(foundItemDTO);
 	}
@@ -68,9 +71,10 @@ public class Controller {
 	}
 
 	/**
-	 * A method to use when all items for the sale are registered.
+	 * A method that returns the total cost and is used by the user to indicate that
+	 * all the items has been registered.
 	 * 
-	 * @return the total cost of the current <code>Sale</code>.
+	 * @return the total cost of the current ongoing {@link Sale}.
 	 */
 	public double itemRegistrationDone() {
 		double totalCost = this.sale.getTotal();
@@ -78,43 +82,25 @@ public class Controller {
 	}
 
 	/**
-	 * Updates the total cost of the sale with a discount if a customer is found
-	 * with the given ID number.
-	 * 
-	 * @return the updated total cost.
-	 * @throws InvalidIdentifierException
-	 *             if no customer with the given ID could be found.
-	 */
-	public double discountRequest(String id) throws InvalidIdentifierException {
-		double newTotalCost = this.sale.discountRequest(id);
-		return newTotalCost;
-	}
-
-	/**
-	 * Pays the sale with the given paid amount and prints out a receipt.
+	 * Pays the sale with the given paid amount and prints out a receipt if the paid
+	 * amount is valid.
 	 * 
 	 * @param paidAmount
 	 *            The amount given by the customer.
 	 * @return the change.
-	 * @throws InvalidAmountException
-	 *             if the paid amount is not enough to pay the sale.
 	 */
-	public double pay(double paidAmount) throws InvalidAmountException {
-		double change = this.sale.pay(paidAmount); //if change < 0, write to errorhandler and return change.
+	public double pay(double paidAmount) {
+		double change = this.sale.pay(paidAmount);
+		if (change < 0) {
+			return change;
+		}
 		Receipt receipt = this.sale.getReceipt();
 		this.printer.printReceipt(receipt);
 		return change;
 	}
 
 	/**
-	 * @return the total amount in the cash register since the start of the program.
-	 */
-	public double getTotalCashRegister() {
-		return this.cashRegister.getTotal();
-	}
-
-	/**
-	 * Ends the current sale.
+	 * Ends the current {@link Sale}.
 	 */
 	public void endSale() {
 		this.sale = null;

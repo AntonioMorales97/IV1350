@@ -11,10 +11,10 @@ public class CurrentInfo {
 	private double runningTotal;
 
 	/**
-	 * Creates a <code>CurrentInfo</code>-object.
+	 * Creates a new instance.
 	 * 
 	 * @param itemDTO
-	 *            The last entered item that was added to the sale.
+	 *            The last {@link ItemDTO} that was added to the sale.
 	 * @param runningTotal
 	 *            The current running total.
 	 */
@@ -34,14 +34,14 @@ public class CurrentInfo {
 	}
 
 	/**
-	 * @return the <code>ItemDTO</code> that is the last entered item.
+	 * @return the {@link ItemDTO} which is the last entered to the sale.
 	 */
 	public ItemDTO getItemDTO() {
 		return this.lastEnteredItem;
 	}
 
 	/**
-	 * @return the updated running total.
+	 * @return the current running total.
 	 */
 	public double getRunningTotal() {
 		return this.runningTotal;

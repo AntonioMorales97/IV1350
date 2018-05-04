@@ -1,7 +1,5 @@
 package se.kth.iv1350.processofsale.integration;
 
-import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
-
 /**
  * This class purpose is to find and return items from a database. But since
  * there is no database, the items will probably be stored in this class.
@@ -18,17 +16,15 @@ public class ItemRegistry {
 	 * 
 	 * @param itemIdentifier
 	 *            Unique identifier to an item.
-	 * @return the ItemDTO that was found. Else it throws an exception.
-	 * @throws InvalidIdentifierException
-	 *             if no <code>ItemDTO</code> with the given item identifier could
-	 *             be found.
+	 * @return the {@link ItemDTO} that was found. Else it returns
+	 *         <code>null</code>.
 	 */
-	public ItemDTO findItem(int itemIdentifier) throws InvalidIdentifierException {
+	public ItemDTO findItem(int itemIdentifier) {
 		for (int i = 0; i < itemDTOs.length; i++) {
 			if (isSameIdentifier(itemDTOs[i], itemIdentifier))
 				return itemDTOs[i];
 		}
-		throw new InvalidIdentifierException("Invalid item identifier.");
+		return null;
 	}
 
 	private boolean isSameIdentifier(ItemDTO itemDTO, int identifier) {
