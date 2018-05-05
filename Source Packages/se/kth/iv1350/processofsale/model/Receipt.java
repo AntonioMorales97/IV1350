@@ -4,6 +4,9 @@ import java.util.List;
 
 import se.kth.iv1350.processofsale.integration.CustomerDTO;
 
+/**
+ * This is the receipt for the finished {@link Sale}.
+ */
 public class Receipt {
 	private static int receiptNumber = 0;
 	private CustomerDTO customer;

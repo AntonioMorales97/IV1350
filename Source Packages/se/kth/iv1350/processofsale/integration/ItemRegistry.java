@@ -14,14 +14,14 @@ public class ItemRegistry {
 	}
 
 	/**
-	 * Searches for the ItemDTO in the array with the same item identifier.
+	 * Searches for the {@link ItemDTO} in the array with the same item identifier.
 	 * 
 	 * @param itemIdentifier
 	 *            Unique identifier to an item.
-	 * @return the ItemDTO that was found. Else it throws an exception.
+	 * @return the {@link ItemDTO} that was found.
 	 * @throws InvalidIdentifierException
-	 *             if no <code>ItemDTO</code> with the given item identifier could
-	 *             be found.
+	 *             if no {@link ItemDTO} with the given item identifier could be
+	 *             found.
 	 */
 	public ItemDTO findItem(int itemIdentifier) throws InvalidIdentifierException {
 		for (int i = 0; i < itemDTOs.length; i++) {

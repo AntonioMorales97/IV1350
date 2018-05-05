@@ -42,7 +42,8 @@ public class ReceiptTest {
 			String valueAddedTax = "VAT: ";
 			boolean containsDiscount = receiptString.contains(discount);
 			boolean containsVAT = receiptString.contains(valueAddedTax);
-			assertTrue("Wrong discount and/or VAT format.", containsDiscount && containsVAT);
+			assertTrue("Wrong discount format.", containsDiscount);
+			assertTrue("Wrong VAT format.", containsVAT);
 			CharSequence date = String.valueOf(this.testSale.getDate());
 			boolean containsDate = receiptString.contains(date);
 			assertTrue("Wrong date format.", containsDate);

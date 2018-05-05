@@ -17,12 +17,14 @@ public class View {
 	private ErrorLogHandler errorLogHandler = new ErrorLogHandler();
 
 	/**
-	 * Creates an instance of View
+	 * Creates an instance of <code>View</code>.
 	 * 
 	 * @param controller
-	 *            The controller that will run all operations.
+	 *            The {@link Controller} that will call methods in the lower
+	 *            layer(s) needed to perform a certain operation called from the
+	 *            user.
 	 */
-	public View(Controller controller) throws IOException{
+	public View(Controller controller) throws IOException {
 		this.controller = controller;
 	}
 

@@ -23,12 +23,12 @@ public class Sale {
 	private String date;
 
 	/**
-	 * Creates a new instance.
+	 * Creates a new instance og <code>Sale</code>.
 	 * 
 	 * @param cashRegister
-	 *            The cash register that the sale will use and update.
+	 *            The {@link CashRegister} that the sale will use and update.
 	 * @param creator
-	 *            The registry creator that is needed to get the important
+	 *            The {@link RegistryCreator} that is needed to get the important
 	 *            registers.
 	 */
 	public Sale(CashRegister cashRegister, RegistryCreator creator) {
@@ -39,17 +39,16 @@ public class Sale {
 
 	/**
 	 * The enterItem-operation. This will update the sale with the item that has the
-	 * given item identifier, store it in the list as an <code>Item</code> -object
-	 * or increase the quantity of the object by one if it is already stored and
-	 * update the running total.
+	 * given item identifier, store it in the list as an {@link Item}-object or
+	 * increase the quantity of the object by one if it is already stored and update
+	 * the running total.
 	 * 
 	 * @param itemIdentifier
-	 *            Unique for an <code>ItemDTO</code>.
-	 * @return the <code>ItemDTO</code> that was found from the given item
-	 *         identifier.
+	 *            Unique for an {@link ItemDTO}.
+	 * @return the {@link ItemDTO} that was found from the given item identifier.
 	 * @throws InvalidIdentifierException
-	 *             if no <code>ItemDTO</code> with the given item identifier could
-	 *             be found.
+	 *             if no {@link ItemDTO} with the given item identifier could be
+	 *             found.
 	 */
 	public ItemDTO enterItem(int itemIdentifier) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = getItemDTO(itemIdentifier);
@@ -63,13 +62,13 @@ public class Sale {
 	 * the quantity of it.
 	 * 
 	 * @param itemIdentifier
-	 *            Unique for an <code>ItemDTO</code>.
+	 *            Unique for an {@link ItemDTO}.
 	 * @param quantity
 	 *            Quantity of items of the same sort that is entered.
-	 * @return the <code>ItemDTO</code> with the given item item identifier.
+	 * @return the {@link ItemDTO} with the given item identifier.
 	 * @throws InvalidIdentifierException
-	 *             if no <code>ItemDTO</code> with the given item identifier could
-	 *             be found.
+	 *             if no {@link ItemDTO} with the given item identifier could be
+	 *             found.
 	 */
 	public ItemDTO enterItems(int itemIdentifier, int quantity) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = getItemDTO(itemIdentifier);
@@ -119,14 +118,14 @@ public class Sale {
 	}
 
 	/**
-	 * @return the running total of this sale which is stored in <code>Costs</code>.
+	 * @return the running total of this <code>Sale</code>.
 	 */
 	public double getRunningTotal() {
 		return this.costs.getRunningTotal();
 	}
 
 	/**
-	 * @return the total cost.
+	 * @return the total cost of this <code>Sale</code>.
 	 */
 	public double getTotal() {
 		double totalCost = this.costs.getTotalCost();
@@ -139,9 +138,9 @@ public class Sale {
 	 * 
 	 * @param id
 	 *            ID number as a <code>String</code>.
-	 * @return the updated total cost for the sale.
+	 * @return the updated total cost for the <code>Sale</code>.
 	 * @throws InvalidIdentifierException
-	 *             if no <code>CustomerDTO</code> with the given ID could be found.
+	 *             if no {@link CustomerDTO} with the given ID could be found.
 	 */
 	public double discountRequest(String id) throws InvalidIdentifierException {
 		CustomerDTO customer = getCustomerDTO(id);
@@ -175,14 +174,14 @@ public class Sale {
 		}
 		double change = this.cashPayment.getChange();
 		if (change < 0) {
-			throw new InvalidAmountException("Need more payment. Current balance:", change); //return change;
+			throw new InvalidAmountException("Need more payment. Current balance:", change); // return change;
 		}
 		this.cashPayment.updateCashRegister();
 		return change;
 	}
 
 	/**
-	 * @return the created receipt of the sale.
+	 * @return the created {@link Receipt} for the <code>Sale</code>.
 	 * @throws InvalidAmountException
 	 *             In case the paid amount for this sale is less than the total
 	 *             cost.

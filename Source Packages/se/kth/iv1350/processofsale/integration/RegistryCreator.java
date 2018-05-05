@@ -11,34 +11,34 @@ public class RegistryCreator {
 	private InventoryRegistry inventoryRegistry = new InventoryRegistry();
 
 	/**
-	 * Creates a <code>RegistryCreator</code>.
+	 * Creates a <code>RegistryCreator</code> instance.
 	 */
 	public RegistryCreator() {
 	}
 
 	/**
-	 * @return the created <code>ItemRegistry</code>.
+	 * @return the created {@link ItemRegistry}.
 	 */
 	public ItemRegistry getItemReg() {
 		return this.itemRegistry;
 	}
 
 	/**
-	 * @return the <code>CustomerRegistry</code>.
+	 * @return the {@link CustomerRegistry}.
 	 */
 	public CustomerRegistry getCustomerReg() {
 		return this.customerRegistry;
 	}
-	
+
 	/**
-	 * @return the <code>AccountingRegistry</code>.
+	 * @return the {@link AccountingRegistry}.
 	 */
 	public AccountingRegistry getAccountingReg() {
 		return this.accountingRegistry;
 	}
-	
+
 	/**
-	 * @return the <code>InventoryRegistry</code>.
+	 * @return the {@link InventoryRegistry}.
 	 */
 	public InventoryRegistry getInventoryReg() {
 		return this.inventoryRegistry;

@@ -11,11 +11,11 @@ public class Printer {
 	}
 
 	/**
-	 * Prints the given receipt. In this case no real printer is available, instead
-	 * it prints to <code>System.out</code>.
+	 * Prints the given {@link Receipt}. In this case no real printer is available,
+	 * instead it prints to <code>System.out</code>.
 	 * 
 	 * @param receipt
-	 *            The receipt for the finished sale.
+	 *            The {@link Receipt} for the finished sale.
 	 */
 	public void printReceipt(Receipt receipt) {
 		System.out.println(receipt);

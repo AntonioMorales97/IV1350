@@ -16,7 +16,14 @@ public class Controller {
 	private Sale sale;
 
 	/**
-	 * Creates <code>Controller</code>.
+	 * Creates an instance of <code>Controller</code>.
+	 * 
+	 * @param creator
+	 *            The {@link RegistryCreator} that holds the needed registers for
+	 *            the sale.
+	 * @param printer
+	 *            A {@link Printer} instance that is an interface to a printer that
+	 *            does not exist.
 	 */
 	public Controller(RegistryCreator creator, Printer printer) {
 		this.creator = creator;
@@ -24,20 +31,20 @@ public class Controller {
 	}
 
 	/**
-	 * Creates a new Sale instance that will represent the current ongoing sale.
+	 * Creates a new {@link Sale} instance that will represent the current ongoing
+	 * sale.
 	 */
 	public void startNewSale() {
 		this.sale = new Sale(cashRegister, creator);
 	}
 
 	/**
-	 * Updates the sale with the item that has the given item identifier and creates
-	 * a <code>CurrentInfo</code> with the update.
+	 * Updates the {@link Sale} with the item that has the given item identifier and
+	 * creates a {@link CurrentInfo} with the update.
 	 * 
 	 * @param itemIdentifier
-	 *            An item identifier that is unique and identifies an item
-	 *            (ItemDTO).
-	 * @return <code>CurrentInfo</code> that was created with the updates.
+	 *            An item identifier that is unique and identifies an item.
+	 * @return {@link CurrentInfo} that was created with the updates.
 	 * @throws InvalidIdentifierException
 	 *             when the given item identifier is invalid.
 	 */
@@ -47,14 +54,14 @@ public class Controller {
 	}
 
 	/**
-	 * Updates the sale with the item and quantity of the item. Creates a
-	 * <code>CurrentInfo</code> with the update.
+	 * Updates the {@link Sale} with the item and the quantity of the item. Creates
+	 * a {@link CurrentInfo} with the update.
 	 * 
 	 * @param itemIdentifier
 	 *            Unique for an item.
 	 * @param quantity
 	 *            Number of items that has same identifier.
-	 * @return <code>CurrentInfo</code> that was created with the updates.
+	 * @return {@link CurrentInfo} that was created with the updates.
 	 * @throws InvalidIdentifierException
 	 *             when the given item identifier is invalid.
 	 */
@@ -68,9 +75,9 @@ public class Controller {
 	}
 
 	/**
-	 * A method to use when all items for the sale are registered.
+	 * A method to use when all items are registered.
 	 * 
-	 * @return the total cost of the current <code>Sale</code>.
+	 * @return the total cost of the current {@link Sale}.
 	 */
 	public double itemRegistrationDone() {
 		double totalCost = this.sale.getTotal();
@@ -91,7 +98,7 @@ public class Controller {
 	}
 
 	/**
-	 * Pays the sale with the given paid amount and prints out a receipt.
+	 * Pays the sale with the given paid amount and prints out a {@link Receipt}.
 	 * 
 	 * @param paidAmount
 	 *            The amount given by the customer.
@@ -100,21 +107,22 @@ public class Controller {
 	 *             if the paid amount is not enough to pay the sale.
 	 */
 	public double pay(double paidAmount) throws InvalidAmountException {
-		double change = this.sale.pay(paidAmount); //if change < 0, write to errorhandler and return change.
+		double change = this.sale.pay(paidAmount);
 		Receipt receipt = this.sale.getReceipt();
 		this.printer.printReceipt(receipt);
 		return change;
 	}
 
 	/**
-	 * @return the total amount in the cash register since the start of the program.
+	 * @return the total amount in the {@link CashRegister} since the start of the
+	 *         program.
 	 */
 	public double getTotalCashRegister() {
 		return this.cashRegister.getTotal();
 	}
 
 	/**
-	 * Ends the current sale.
+	 * Ends the current ongoing {@link Sale}.
 	 */
 	public void endSale() {
 		this.sale = null;

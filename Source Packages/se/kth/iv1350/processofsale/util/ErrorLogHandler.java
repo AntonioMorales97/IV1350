@@ -8,8 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * This class takes care of logging all of the exceptions that are given to a
- * file.
+ * This class takes care of logging all of the <code>Exceptions</code> that are
+ * given to a file.
  */
 public class ErrorLogHandler {
 	private static final String LOG_FILE_NAME = "processofsale-error-log.txt";
@@ -27,10 +27,10 @@ public class ErrorLogHandler {
 	}
 
 	/**
-	 * Logs the given exception in a file.
+	 * Logs the given <code>Exception</code> in a file.
 	 * 
 	 * @param exc
-	 *            The exception that occurred.
+	 *            The <code>Exception</code> that occurred.
 	 */
 	public void logError(Exception exc) {
 		StringBuilder errorRapport = new StringBuilder();

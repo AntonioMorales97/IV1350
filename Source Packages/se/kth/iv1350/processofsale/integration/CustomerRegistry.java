@@ -14,13 +14,13 @@ public class CustomerRegistry {
 	}
 
 	/**
-	 * Searches for a customer with the given ID number.
+	 * Searches for a {@link CustomerDTO} with the given ID number.
 	 * 
 	 * @param id
 	 *            ID number as a <code>String</code>.
-	 * @return the customerDTO if found.
+	 * @return the {@link CustomerDTO} if found.
 	 * @throws InvalidIdentifierException
-	 *             if no <code>CustomerDTO</code> with the given ID could be found.
+	 *             if no {@link CustomerDTO} with the given ID could be found.
 	 */
 	public CustomerDTO findCustomer(String id) throws InvalidIdentifierException {
 		for (int i = 0; i < customers.length; i++) {

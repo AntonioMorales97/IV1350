@@ -1,7 +1,7 @@
 package se.kth.iv1350.processofsale.integration;
 
 /**
- * A class that holds information about a customer.
+ * A class that holds information about a registered customer.
  */
 public class CustomerDTO {
 	private String name;

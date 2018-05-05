@@ -4,7 +4,7 @@ import se.kth.iv1350.processofsale.integration.CustomerDTO;
 import se.kth.iv1350.processofsale.integration.ItemDTO;
 
 /**
- * The Costs-class will contain and update all of the costs for the sale.
+ * This class will contain and update all of the costs for the sale.
  */
 class Costs {
 	private TaxDTO tax = new TaxDTO();
@@ -26,7 +26,7 @@ class Costs {
 	private void updateTotalCost() {
 		this.totalCost = this.runningTotal + (this.runningTotal * this.tax.getTax());
 	}
-	
+
 	private void updateValueAddedTax() {
 		this.valueAddedTax = this.runningTotal * this.tax.getTax();
 	}
@@ -38,22 +38,22 @@ class Costs {
 	double getTotalCost() {
 		return this.totalCost;
 	}
-	
+
 	double getTax() {
 		return this.tax.getTax();
 	}
-	
+
 	double getValueAddedTax() {
 		return this.valueAddedTax;
 	}
-	
+
 	double getDiscountAmount() {
 		return this.discountAmount;
 	}
-	
+
 	void enterDiscount(CustomerDTO customer) {
 		double discountPercent = customer.getDiscountPercent();
-		this.discountAmount = this.totalCost*(discountPercent/100);
+		this.discountAmount = this.totalCost * (discountPercent / 100);
 		this.totalCost -= this.discountAmount;
 	}
 }
