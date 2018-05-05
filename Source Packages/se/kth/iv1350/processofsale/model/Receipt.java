@@ -2,6 +2,9 @@ package se.kth.iv1350.processofsale.model;
 
 import java.util.List;
 
+/**
+ * This is the receipt for the finished {@link Sale}.
+ */
 public class Receipt {
 	private static int receiptNumber = 0;
 	private List<Item> items;
