@@ -10,6 +10,7 @@ import se.kth.iv1350.processofsale.integration.ItemDTO;
 import se.kth.iv1350.processofsale.integration.Printer;
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
 import se.kth.iv1350.processofsale.model.CurrentInfo;
+import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
 
 public class ControllerTest {
 
@@ -19,7 +20,7 @@ public class ControllerTest {
 
 	@Before
 	public void setUp() {
-		RegistryCreator creator = new RegistryCreator();
+		RegistryCreator creator = RegistryCreator.getCreator();
 		Printer printer = new Printer();
 		this.controller = new Controller(creator, printer);
 		this.controller.startNewSale();
@@ -39,47 +40,75 @@ public class ControllerTest {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			fail("Failed to create a sale.");
+		} catch (InvalidIdentifierException e) {
+			e.printStackTrace();
+			fail("Got exception.");
 		}
 	}
 
 	@Test
 	public void testEnterItem() {
-		CurrentInfo currentInfo = this.controller.enterItem(VALID_ITEM_ID);
-		assertNotNull("CurrentInfo is null.");
-		ItemDTO itemDTO = currentInfo.getItemDTO();
-		assertNotNull("ItemDTO is null.", itemDTO);
-		boolean expRunningTotal = currentInfo.getRunningTotal() > 0;
-		assertTrue("Running total less than or equal to zero.", expRunningTotal);
+		try {
+			CurrentInfo currentInfo = this.controller.enterItem(VALID_ITEM_ID);
+			assertNotNull("CurrentInfo is null.");
+			ItemDTO itemDTO = currentInfo.getItemDTO();
+			assertNotNull("ItemDTO is null.", itemDTO);
+			boolean expRunningTotal = currentInfo.getRunningTotal() > 0;
+			assertTrue("Running total less than or equal to zero.", expRunningTotal);
+		} catch (InvalidIdentifierException exc) {
+			exc.printStackTrace();
+			fail("Got exception.");
+		}
 	}
 
 	@Test
 	public void testEnterItems() {
-		CurrentInfo currentInfo = this.controller.enterItems(VALID_ITEM_ID, QUANTITY);
-		assertNotNull("CurrentInfo is null.", currentInfo);
+		try {
+			CurrentInfo currentInfo = this.controller.enterItems(VALID_ITEM_ID, QUANTITY);
+			assertNotNull("CurrentInfo is null.", currentInfo);
+		} catch (InvalidIdentifierException exc) {
+			exc.printStackTrace();
+			fail("Got exception.");
+		}
 	}
 
 	@Test
 	public void testItemRegistrationDone() {
-		this.controller.enterItem(VALID_ITEM_ID);
-		double totalCost = this.controller.itemRegistrationDone();
-		boolean expTotalCost = totalCost > 0;
-		assertTrue("Wrong total cost.", expTotalCost);
+		try {
+			this.controller.enterItem(VALID_ITEM_ID);
+			double totalCost = this.controller.itemRegistrationDone();
+			boolean expTotalCost = totalCost > 0;
+			assertTrue("Wrong total cost.", expTotalCost);
+		} catch (InvalidIdentifierException exc) {
+			exc.printStackTrace();
+			fail("Got exception.");
+		}
 	}
 
 	@Test
 	public void testPay() {
-		this.controller.enterItem(VALID_ITEM_ID);
-		double totalCost = this.controller.itemRegistrationDone();
-		double paidAmount = 20;
-		double actChange = this.controller.pay(paidAmount);
-		double expChange = paidAmount - totalCost;
-		assertEquals("Wrong change.", expChange, actChange, 0.0f);
+		try {
+			this.controller.enterItem(VALID_ITEM_ID);
+			double totalCost = this.controller.itemRegistrationDone();
+			double paidAmount = 20;
+			double actChange = this.controller.pay(paidAmount);
+			double expChange = paidAmount - totalCost;
+			assertEquals("Wrong change.", expChange, actChange, 0.0f);
+		} catch (InvalidIdentifierException exc) {
+			exc.printStackTrace();
+			fail("Got exception.");
+		}
 	}
 
 	@Test(expected = NullPointerException.class)
 	public void testEndSale() {
-		this.controller.endSale();
-		this.controller.enterItem(VALID_ITEM_ID);
+		try {
+			this.controller.endSale();
+			this.controller.enterItem(VALID_ITEM_ID);
+		} catch (InvalidIdentifierException exc) {
+			exc.printStackTrace();
+			fail("Got exception.");
+		}
 	}
 
 }

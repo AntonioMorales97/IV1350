@@ -6,8 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import se.kth.iv1350.processofsale.view.TotalRevenueView;
+
 public class CashPaymentTest {
-	private CashRegister testCashRegister = new CashRegister();
+	private CashRegister testCashRegister = new CashRegister(new TotalRevenueView());
 	private CashPayment cashPayment;
 
 	@Before

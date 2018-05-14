@@ -14,12 +14,12 @@ public class CostsTest {
 	private int BANANA_ID = 1;
 	private double BANANA_PRICE;
 	private Costs costs;
-	private RegistryCreator creator = new RegistryCreator();
+	private RegistryCreator creator = RegistryCreator.getCreator();
 	private Item oneBanana;
 	private Item twoBananas;
 
 	@Before
-	public void setUpTest() {
+	public void setUpTest() throws InvalidIdentifierException {
 		this.costs = new Costs();
 		ItemRegistry itemReg = creator.getItemReg();
 		ItemDTO bananaDTO = itemReg.findItem(BANANA_ID);

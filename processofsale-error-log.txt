@@ -1,0 +1,112 @@
+Exception 2018/05/09 19:04:21
+====================
+Could not connect to database.
+====================
+Exception stack trace: 
+se.kth.iv1350.processofsale.model.RegistryException: Could not connect to database.
+	at se.kth.iv1350.processofsale.integration.ItemRegistry.findItem(ItemRegistry.java:35)
+	at se.kth.iv1350.processofsale.model.Sale.getItemDTO(Sale.java:81)
+	at se.kth.iv1350.processofsale.model.Sale.enterItem(Sale.java:52)
+	at se.kth.iv1350.processofsale.controller.Controller.enterItem(Controller.java:53)
+	at se.kth.iv1350.processofsale.view.View.databaseFailureExecution(View.java:58)
+	at se.kth.iv1350.processofsale.view.View.sampleExecution(View.java:43)
+	at se.kth.iv1350.processofsale.startup.Startup.main(Startup.java:29)
+
+Exception 2018/05/10 14:24:59
+====================
+Could not connect to database.
+====================
+Exception stack trace: 
+se.kth.iv1350.processofsale.model.RegistryException: Could not connect to database.
+	at se.kth.iv1350.processofsale.integration.ItemRegistry.findItem(ItemRegistry.java:35)
+	at se.kth.iv1350.processofsale.model.Sale.getItemDTO(Sale.java:81)
+	at se.kth.iv1350.processofsale.model.Sale.enterItem(Sale.java:52)
+	at se.kth.iv1350.processofsale.controller.Controller.enterItem(Controller.java:53)
+	at se.kth.iv1350.processofsale.view.View.databaseFailureExecution(View.java:73)
+	at se.kth.iv1350.processofsale.view.View.sampleExecution(View.java:51)
+	at se.kth.iv1350.processofsale.startup.Startup.main(Startup.java:29)
+
+Exception 2018/05/10 14:26:10
+====================
+Could not connect to database.
+====================
+Exception stack trace: 
+se.kth.iv1350.processofsale.model.RegistryException: Could not connect to database.
+	at se.kth.iv1350.processofsale.integration.ItemRegistry.findItem(ItemRegistry.java:35)
+	at se.kth.iv1350.processofsale.model.Sale.getItemDTO(Sale.java:81)
+	at se.kth.iv1350.processofsale.model.Sale.enterItem(Sale.java:52)
+	at se.kth.iv1350.processofsale.controller.Controller.enterItem(Controller.java:53)
+	at se.kth.iv1350.processofsale.view.View.databaseFailureExecution(View.java:73)
+	at se.kth.iv1350.processofsale.view.View.sampleExecution(View.java:51)
+	at se.kth.iv1350.processofsale.startup.Startup.main(Startup.java:29)
+
+Exception 2018/05/10 16:43:55
+====================
+Could not connect to database.
+====================
+Exception stack trace: 
+se.kth.iv1350.processofsale.model.RegistryException: Could not connect to database.
+	at se.kth.iv1350.processofsale.integration.ItemRegistry.findItem(ItemRegistry.java:44)
+	at se.kth.iv1350.processofsale.model.Sale.getItemDTO(Sale.java:84)
+	at se.kth.iv1350.processofsale.model.Sale.enterItem(Sale.java:55)
+	at se.kth.iv1350.processofsale.controller.Controller.enterItem(Controller.java:53)
+	at se.kth.iv1350.processofsale.view.View.databaseFailureExecution(View.java:74)
+	at se.kth.iv1350.processofsale.view.View.sampleExecution(View.java:51)
+	at se.kth.iv1350.processofsale.startup.Startup.main(Startup.java:29)
+
+Exception 2018/05/10 16:47:25
+====================
+Could not connect to database.
+====================
+Exception stack trace: 
+se.kth.iv1350.processofsale.model.RegistryException: Could not connect to database.
+	at se.kth.iv1350.processofsale.integration.ItemRegistry.findItem(ItemRegistry.java:44)
+	at se.kth.iv1350.processofsale.model.Sale.getItemDTO(Sale.java:84)
+	at se.kth.iv1350.processofsale.model.Sale.enterItem(Sale.java:55)
+	at se.kth.iv1350.processofsale.controller.Controller.enterItem(Controller.java:53)
+	at se.kth.iv1350.processofsale.view.View.databaseFailureExecution(View.java:76)
+	at se.kth.iv1350.processofsale.view.View.sampleExecution(View.java:52)
+	at se.kth.iv1350.processofsale.startup.Startup.main(Startup.java:29)
+
+Exception 2018/05/10 16:48:18
+====================
+Could not connect to database.
+====================
+Exception stack trace: 
+se.kth.iv1350.processofsale.model.RegistryException: Could not connect to database.
+	at se.kth.iv1350.processofsale.integration.ItemRegistry.findItem(ItemRegistry.java:44)
+	at se.kth.iv1350.processofsale.model.Sale.getItemDTO(Sale.java:84)
+	at se.kth.iv1350.processofsale.model.Sale.enterItem(Sale.java:55)
+	at se.kth.iv1350.processofsale.controller.Controller.enterItem(Controller.java:53)
+	at se.kth.iv1350.processofsale.view.View.databaseFailureExecution(View.java:76)
+	at se.kth.iv1350.processofsale.view.View.sampleExecution(View.java:52)
+	at se.kth.iv1350.processofsale.startup.Startup.main(Startup.java:29)
+
+Exception 2018/05/10 17:17:38
+====================
+Could not connect to database.
+====================
+Exception stack trace: 
+se.kth.iv1350.processofsale.model.RegistryException: Could not connect to database.
+	at se.kth.iv1350.processofsale.integration.ItemRegistry.findItem(ItemRegistry.java:44)
+	at se.kth.iv1350.processofsale.model.Sale.getItemDTO(Sale.java:84)
+	at se.kth.iv1350.processofsale.model.Sale.enterItem(Sale.java:55)
+	at se.kth.iv1350.processofsale.controller.Controller.enterItem(Controller.java:53)
+	at se.kth.iv1350.processofsale.view.View.databaseFailureExecution(View.java:76)
+	at se.kth.iv1350.processofsale.view.View.sampleExecution(View.java:52)
+	at se.kth.iv1350.processofsale.startup.Startup.main(Startup.java:29)
+
+Exception 2018/05/10 17:20:10
+====================
+Could not connect to database.
+====================
+Exception stack trace: 
+se.kth.iv1350.processofsale.model.RegistryException: Could not connect to database.
+	at se.kth.iv1350.processofsale.integration.ItemRegistry.findItem(ItemRegistry.java:44)
+	at se.kth.iv1350.processofsale.model.Sale.getItemDTO(Sale.java:84)
+	at se.kth.iv1350.processofsale.model.Sale.enterItem(Sale.java:55)
+	at se.kth.iv1350.processofsale.controller.Controller.enterItem(Controller.java:53)
+	at se.kth.iv1350.processofsale.view.View.databaseFailureExecution(View.java:76)
+	at se.kth.iv1350.processofsale.view.View.sampleExecution(View.java:52)
+	at se.kth.iv1350.processofsale.startup.Startup.main(Startup.java:29)
+

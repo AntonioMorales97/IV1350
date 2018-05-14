@@ -11,7 +11,7 @@ public class RegistryCreatorTest {
 
 	@Before
 	public void setUp() {
-		this.creator = new RegistryCreator();
+		this.creator = RegistryCreator.getCreator();
 	}
 
 	@After

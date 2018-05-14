@@ -10,8 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.kth.iv1350.processofsale.model.CashRegister;
+import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
 import se.kth.iv1350.processofsale.model.Receipt;
 import se.kth.iv1350.processofsale.model.Sale;
+import se.kth.iv1350.processofsale.view.TotalRevenueView;
 
 public class PrinterTest {
 	private int VALID_ITEM_ID = 1;
@@ -34,10 +36,11 @@ public class PrinterTest {
 
 	@Test
 	public void testPrintReceipt() {
+		try {
 		Printer printer = new Printer();
-		CashRegister cashReg = new CashRegister();
-		RegistryCreator creator = new RegistryCreator();
-		Sale sale = new Sale(cashReg, creator);
+		CashRegister cashReg = new CashRegister(new TotalRevenueView());
+		RegistryCreator creator = RegistryCreator.getCreator();
+		Sale sale = Sale.getSale(cashReg, creator);
 		ItemDTO item = sale.enterItem(VALID_ITEM_ID);
 		sale.pay(20);
 		Receipt receipt = sale.getReceipt();
@@ -58,6 +61,10 @@ public class PrinterTest {
 		assertTrue("Wrong item info format printed out.", containsItemInfo);
 		boolean receiptHeader = result.contains("RECEIPT");
 		assertTrue("Wrong receipt header printed out.", receiptHeader);
+		} catch (InvalidIdentifierException exc) {
+			exc.printStackTrace();
+			fail("Got exception.");
+		}
 	}
 
 }

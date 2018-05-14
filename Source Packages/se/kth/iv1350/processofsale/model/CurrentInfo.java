@@ -28,7 +28,7 @@ public class CurrentInfo {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Entered Item\n");
 		sb.append(this.lastEnteredItem + "\n");
-		sb.append("Running total: " + this.runningTotal);
+		sb.append("Running total: " + this.runningTotal+"\n");
 		return sb.toString();
 
 	}

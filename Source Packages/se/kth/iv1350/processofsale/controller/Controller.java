@@ -10,7 +10,7 @@ import se.kth.iv1350.processofsale.integration.RegistryCreator;
  * the action called from the view.
  */
 public class Controller {
-	private CashRegister cashRegister = new CashRegister();
+	private CashRegister cashRegister;
 	private RegistryCreator creator;
 	private Printer printer;
 	private Sale sale;
@@ -35,7 +35,7 @@ public class Controller {
 	 * sale.
 	 */
 	public void startNewSale() {
-		this.sale = new Sale(cashRegister, creator);
+		this.sale = Sale.getSale(this.cashRegister, this.creator);
 	}
 
 	/**
@@ -45,8 +45,11 @@ public class Controller {
 	 * @param itemIdentifier
 	 *            An item identifier that is unique and identifies an item.
 	 * @return {@link CurrentInfo} that was created with the updates.
+	 * @throws InvalidIdentifierException
+	 *             when no {@link ItemDTO} could be found with the given item
+	 *             identifier.
 	 */
-	public CurrentInfo enterItem(int itemIdentifier) {
+	public CurrentInfo enterItem(int itemIdentifier) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = sale.enterItem(itemIdentifier);
 		return createCurrentInfo(foundItemDTO);
 	}
@@ -60,8 +63,11 @@ public class Controller {
 	 * @param quantity
 	 *            Number of items that has same identifier.
 	 * @return the {@link CurrentInfo} that was created with the updates.
+	 * @throws InvalidIdentifierException
+	 *             when no {@link ItemDTO} could be found with the given item
+	 *             identifier.
 	 */
-	public CurrentInfo enterItems(int itemIdentifier, int quantity) {
+	public CurrentInfo enterItems(int itemIdentifier, int quantity) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = sale.enterItems(itemIdentifier, quantity);
 		return createCurrentInfo(foundItemDTO);
 	}
@@ -103,6 +109,19 @@ public class Controller {
 	 * Ends the current {@link Sale}.
 	 */
 	public void endSale() {
+		Sale.endSale();
 		this.sale = null;
+	}
+
+	/**
+	 * Adds a {@link CashRegisterObserver} that will observe the
+	 * {@link CashRegister} for the sale.
+	 * 
+	 * @param observer
+	 *            A class that implements the {@link CashRegisterObserver}
+	 *            interface.
+	 */
+	public void addCashRegisterObserver(CashRegisterObserver observer) {
+		this.cashRegister = new CashRegister(observer);
 	}
 }

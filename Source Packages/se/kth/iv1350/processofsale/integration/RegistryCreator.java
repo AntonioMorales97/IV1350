@@ -5,12 +5,20 @@ package se.kth.iv1350.processofsale.integration;
  */
 
 public class RegistryCreator {
-	private ItemRegistry itemRegistry = new ItemRegistry();
+	private static final RegistryCreator creator = new RegistryCreator();
+	private ItemRegistry itemRegistry = ItemRegistry.getItemRegistry();
 
 	/**
 	 * Creates a <code>RegistryCreator</code>.
 	 */
-	public RegistryCreator() {
+	private RegistryCreator() {
+	}
+
+	/**
+	 * @return the <code>RegistryCreator</code> only instance.
+	 */
+	public static RegistryCreator getCreator() {
+		return RegistryCreator.creator;
 	}
 
 	/**

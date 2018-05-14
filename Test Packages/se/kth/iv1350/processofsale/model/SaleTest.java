@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
+import se.kth.iv1350.processofsale.view.TotalRevenueView;
 
 public class SaleTest {
 	private Sale sale;
@@ -14,9 +15,9 @@ public class SaleTest {
 
 	@Before
 	public void setUp() {
-		RegistryCreator creator = new RegistryCreator();
-		CashRegister cashRegister = new CashRegister();
-		this.sale = new Sale(cashRegister, creator);
+		RegistryCreator creator = RegistryCreator.getCreator();
+		CashRegister cashRegister = new CashRegister(new TotalRevenueView());
+		this.sale = Sale.getSale(cashRegister, creator);
 	}
 
 	@After
@@ -25,7 +26,7 @@ public class SaleTest {
 	}
 
 	@Test
-	public void testEnterItem() {
+	public void testEnterItem() throws InvalidIdentifierException {
 		this.sale.enterItem(VALID_ITEM_ID);
 		double runningTotal = this.sale.getRunningTotal();
 		boolean exp = runningTotal > 0;
@@ -33,7 +34,7 @@ public class SaleTest {
 	}
 
 	@Test
-	public void testEnterItems() {
+	public void testEnterItems() throws InvalidIdentifierException {
 		this.sale.enterItem(VALID_ITEM_ID);
 		double firstRunningTotal = this.sale.getRunningTotal();
 		this.sale.enterItems(VALID_ITEM_ID, 3);
@@ -43,7 +44,7 @@ public class SaleTest {
 	}
 
 	@Test
-	public void testPay() {
+	public void testPay() throws InvalidIdentifierException {
 		this.sale.enterItem(VALID_ITEM_ID);
 		double totalCost = this.sale.getTotal();
 		double paidAmount = 15;

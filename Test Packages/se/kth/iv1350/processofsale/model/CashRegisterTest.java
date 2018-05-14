@@ -4,11 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import se.kth.iv1350.processofsale.view.TotalRevenueView;
+
 public class CashRegisterTest {
 
 	@Test
 	public void testAddPayment() {
-		CashRegister cashRegister = new CashRegister();
+		CashRegister cashRegister = new CashRegister(new TotalRevenueView());
 		double paidAmount = 100;
 		double totalCost = 70;
 		CashPayment cashPayment = new CashPayment(paidAmount, totalCost, cashRegister);

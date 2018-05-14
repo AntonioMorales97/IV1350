@@ -3,7 +3,7 @@ package se.kth.iv1350.processofsale.model;
 /**
  * Represents the payment in cash for sale and its change.
  */
-class CashPayment {
+public class CashPayment {
 	private double paidAmount;
 	private double totalCost;
 	private double change;
@@ -25,7 +25,11 @@ class CashPayment {
 		return this.paidAmount;
 	}
 
-	double getTotalCost() {
+	/**
+	 * @return the total amount paid after a valid payment, which is equal to the
+	 *         total cost for the sale.
+	 */
+	public double getTotalCost() {
 		return this.totalCost;
 	}
 

@@ -1,7 +1,5 @@
 package se.kth.iv1350.processofsale.model;
 
-import se.kth.iv1350.processofsale.integration.RegistryCreator;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -14,6 +12,7 @@ import se.kth.iv1350.processofsale.integration.*;
  */
 
 public class Sale {
+	private static Sale instance = null;
 	private List<Item> enteredItems = new ArrayList<>();
 	private CashRegister cashRegister;
 	private Costs costs = new Costs();
@@ -21,19 +20,21 @@ public class Sale {
 	private CashPayment cashPayment;
 	private String date;
 
-	/**
-	 * Creates a new instance of <code>Sale</code>.
-	 * 
-	 * @param cashRegister
-	 *            The {@link CashRegister} that the sale will use and update.
-	 * @param creator
-	 *            The {@link RegistryCreator} that is needed to get the important
-	 *            registers.
-	 */
-	public Sale(CashRegister cashRegister, RegistryCreator creator) {
+	private Sale(CashRegister cashRegister, RegistryCreator creator) {
 		this.cashRegister = cashRegister;
 		this.creator = creator;
 		recordDate();
+	}
+	
+	public static Sale getSale (CashRegister cashRegister, RegistryCreator creator) {
+		if (Sale.instance == null) {
+			Sale.instance = new Sale (cashRegister, creator);
+		}
+		return Sale.instance;
+	}
+	
+	public static void endSale() {
+		Sale.instance = null;
 	}
 
 	/**
@@ -46,8 +47,11 @@ public class Sale {
 	 *            Unique for an {@link ItemDTO}.
 	 * @return a {@link ItemDTO} if one was found from the given item identifier.
 	 *         Else it returns <code>null</code>.
+	 * @throws InvalidIdentifierException
+	 *             when no {@link ItemDTO} could be found with the given item
+	 *             identifier.
 	 */
-	public ItemDTO enterItem(int itemIdentifier) {
+	public ItemDTO enterItem(int itemIdentifier) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = getItemDTO(itemIdentifier);
 		Item newItem = new Item(foundItemDTO);
 		updateSale(newItem);
@@ -64,15 +68,18 @@ public class Sale {
 	 *            Quantity of items of the same sort that is entered.
 	 * @return a {@link ItemDTO} if it has the given item identifier. Else it
 	 *         returns <code>null</code>.
+	 * @throws InvalidIdentifierException
+	 *             when no {@link ItemDTO} could be found with the given item
+	 *             identifier.
 	 */
-	public ItemDTO enterItems(int itemIdentifier, int quantity) {
+	public ItemDTO enterItems(int itemIdentifier, int quantity) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = getItemDTO(itemIdentifier);
 		Item newItem = new Item(foundItemDTO, quantity);
 		updateSale(newItem);
 		return foundItemDTO;
 	}
 
-	private ItemDTO getItemDTO(int itemIdentifier) {
+	private ItemDTO getItemDTO(int itemIdentifier) throws InvalidIdentifierException {
 		ItemRegistry itemReg = creator.getItemReg();
 		ItemDTO foundItemDTO = itemReg.findItem(itemIdentifier);
 		return foundItemDTO;
