@@ -34,28 +34,22 @@ public class View {
 	 */
 	public void sampleExecution() {
 		controller.startNewSale();
-		
+
 		try {
 			CurrentInfo currentInfo = controller.enterItems(1, 10);
 			System.out.println(currentInfo);
 		} catch (InvalidIdentifierException exc) {
-			sendException(exc);
+			sendExceptionToConsole(exc);
 		}
-		
+
 		try {
 			CurrentInfo currentInfo = controller.enterItem(2);
 			System.out.println(currentInfo);
 		} catch (InvalidIdentifierException exc) {
-			sendException(exc);
-		}
-		
-		try {
-			CurrentInfo currentInfo = controller.enterItem(-1);
-			System.out.println(currentInfo);
-		} catch (InvalidIdentifierException exc) {
-			sendException(exc);
+			sendExceptionToConsole(exc);
 		}
 
+		invalidItemIdentifierExecution();
 
 		databaseFailureExecution();
 
@@ -65,23 +59,18 @@ public class View {
 		controller.endSale();
 	}
 
-	private void sendException(Exception exc) {
+	private void sendExceptionToConsole(Exception exc) {
+		this.logger = new ErrorConsoleLogger();
+		this.logger.logException(exc);
+	}
+
+	private void sendExceptionToFile(RuntimeException exc) {
 		try {
-			setLoggerType(exc);
+			this.logger = new ErrorFileLogger();
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to open log file.");
 		}
 		this.logger.logException(exc);
-	}
-
-	private void setLoggerType(Exception exc) throws IOException {
-		if (exc instanceof Exception) {
-			this.logger = new ErrorConsoleLogger();
-		} else if (exc instanceof RuntimeException) {
-			this.logger = new ErrorFileLogger();
-		} else {
-			throw new RuntimeException("Something went wrong when setting logger type.");
-		}
 	}
 
 	private void databaseFailureExecution() {
@@ -90,10 +79,19 @@ public class View {
 			CurrentInfo currentInfo = controller.enterItem(databaseFailureItemIdentifier);
 			System.out.println(currentInfo);
 		} catch (RegistryException exc) {
-			sendException(exc);
-			throw exc; // or log it in the exception class or just continue?
+			sendExceptionToConsole(exc);
+			sendExceptionToFile(exc);
 		} catch (InvalidIdentifierException exc) {
-			sendException(exc);
+			sendExceptionToConsole(exc);
+		}
+	}
+
+	private void invalidItemIdentifierExecution() {
+		try {
+			CurrentInfo currentInfo = controller.enterItem(-1);
+			System.out.println(currentInfo);
+		} catch (InvalidIdentifierException exc) {
+			sendExceptionToConsole(exc);
 		}
 	}
 }

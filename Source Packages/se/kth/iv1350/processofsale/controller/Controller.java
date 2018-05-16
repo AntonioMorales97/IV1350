@@ -19,11 +19,11 @@ public class Controller {
 	 * Creates an instance of <code>Controller</code>.
 	 * 
 	 * @param creator
-	 *            The {@link RegistryCreator} that holds the needed registers for
-	 *            the sale.
+	 *            The {@link RegistryCreator} that holds the needed registers
+	 *            for the sale.
 	 * @param printer
-	 *            A {@link Printer} instance that is an interface to a printer that
-	 *            does not exist.
+	 *            A {@link Printer} instance that is an interface to a printer
+	 *            that does not exist.
 	 */
 	public Controller(RegistryCreator creator, Printer printer) {
 		this.creator = creator;
@@ -31,16 +31,16 @@ public class Controller {
 	}
 
 	/**
-	 * Creates a new {@link Sale} instance that will represent the current ongoing
-	 * sale.
+	 * Creates a new {@link Sale} instance that will represent the current
+	 * ongoing sale.
 	 */
 	public void startNewSale() {
 		this.sale = Sale.getSale(this.cashRegister, this.creator);
 	}
 
 	/**
-	 * Updates the sale with the item that has the given item identifier and creates
-	 * a {@link CurrentInfo} with the update.
+	 * Updates the sale with the item that has the given item identifier and
+	 * creates a {@link CurrentInfo} with the update.
 	 * 
 	 * @param itemIdentifier
 	 *            An item identifier that is unique and identifies an item.
@@ -55,8 +55,9 @@ public class Controller {
 	}
 
 	/**
-	 * Updates the sale with the item with the given item identifier and also with
-	 * the quantity of that item. Creates a {@link CurrentInfo} with the update.
+	 * Updates the sale with the item with the given item identifier and also
+	 * with the quantity of that item. Creates a {@link CurrentInfo} with the
+	 * update.
 	 * 
 	 * @param itemIdentifier
 	 *            Unique for an item and identifies an item.
@@ -77,8 +78,8 @@ public class Controller {
 	}
 
 	/**
-	 * A method that returns the total cost and is used by the user to indicate that
-	 * all the items has been registered.
+	 * A method that returns the total cost and is used by the user to indicate
+	 * that all the items has been registered.
 	 * 
 	 * @return the total cost of the current ongoing {@link Sale}.
 	 */
@@ -88,8 +89,8 @@ public class Controller {
 	}
 
 	/**
-	 * Pays the sale with the given paid amount and prints out a receipt if the paid
-	 * amount is valid.
+	 * Pays the sale with the given paid amount and prints out a receipt if the
+	 * paid amount is valid.
 	 * 
 	 * @param paidAmount
 	 *            The amount given by the customer.
@@ -102,6 +103,7 @@ public class Controller {
 		}
 		Receipt receipt = this.sale.getReceipt();
 		this.printer.printReceipt(receipt);
+		endSale();
 		return change;
 	}
 
