@@ -49,14 +49,11 @@ public class View {
 			sendExceptionToConsole(exc);
 		}
 
-		//invalidItemIdentifierExecution();
+		// invalidItemIdentifierExecution();
 
-		//databaseFailureExecution();
+		databaseFailureExecution();
 
-		double totalCost = controller.itemRegistrationDone();
-		System.out.println("Total cost: " + String.format("%.2f", totalCost) + "\n");
-		controller.pay(150);
-		controller.endSale();
+		//endOfSaleExecution();
 	}
 
 	private void sendExceptionToConsole(Exception exc) {
@@ -93,5 +90,12 @@ public class View {
 		} catch (InvalidIdentifierException exc) {
 			sendExceptionToConsole(exc);
 		}
+	}
+
+	private void endOfSaleExecution() {
+		double totalCost = controller.itemRegistrationDone();
+		System.out.println("Total cost: " + String.format("%.2f", totalCost) + "\n");
+		controller.pay(150);
+		controller.endSale();
 	}
 }
