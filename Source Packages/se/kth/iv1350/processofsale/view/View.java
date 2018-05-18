@@ -49,9 +49,9 @@ public class View {
 			sendExceptionToConsole(exc);
 		}
 
-		invalidItemIdentifierExecution();
+		//invalidItemIdentifierExecution();
 
-		databaseFailureExecution();
+		//databaseFailureExecution();
 
 		double totalCost = controller.itemRegistrationDone();
 		System.out.println("Total cost: " + String.format("%.2f", totalCost) + "\n");
