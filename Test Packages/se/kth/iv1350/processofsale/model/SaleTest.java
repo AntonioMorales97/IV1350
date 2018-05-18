@@ -18,6 +18,7 @@ public class SaleTest {
 		RegistryCreator creator = RegistryCreator.getCreator();
 		CashRegister cashRegister = new CashRegister(new TotalRevenueView());
 		this.sale = Sale.getSale(cashRegister, creator);
+		assertTrue("Failed to create instance of Sale.", this.sale instanceof Sale);
 	}
 
 	@After

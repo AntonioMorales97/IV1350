@@ -11,6 +11,7 @@ import se.kth.iv1350.processofsale.integration.Printer;
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
 import se.kth.iv1350.processofsale.model.CurrentInfo;
 import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
+import se.kth.iv1350.processofsale.view.TotalRevenueView;
 
 public class ControllerTest {
 
@@ -99,7 +100,7 @@ public class ControllerTest {
 			fail("Got exception.");
 		}
 	}
-
+	
 	@Test(expected = NullPointerException.class)
 	public void testEndSale() {
 		try {
