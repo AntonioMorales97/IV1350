@@ -1,7 +1,7 @@
 package se.kth.iv1350.processofsale.model;
 
 /**
- * An interface so the total of the cash register can be seen.
+ * An interface so the total of the cash register can be observed.
  */
 public interface CashRegisterObserver {
 

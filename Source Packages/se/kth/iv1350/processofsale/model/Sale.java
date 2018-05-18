@@ -25,14 +25,28 @@ public class Sale {
 		this.creator = creator;
 		recordDate();
 	}
-	
-	public static Sale getSale (CashRegister cashRegister, RegistryCreator creator) {
+
+	/**
+	 * A method to access the current instance of <code>Sale</code> or create one if
+	 * it is <code>null<code>.
+	 * @param cashRegister The {@link CashRegister} that the <code>Sale</code> will
+	 *            update.
+	 * 
+	 * @param creator
+	 *            The {@link RegistryCreator} that the Sale will be using.
+	 * @return The <code>Sale</code>-instance which represents the current ongoing
+	 *         sale.
+	 */
+	public static Sale getSale(CashRegister cashRegister, RegistryCreator creator) {
 		if (Sale.instance == null) {
-			Sale.instance = new Sale (cashRegister, creator);
+			Sale.instance = new Sale(cashRegister, creator);
 		}
 		return Sale.instance;
 	}
-	
+
+	/**
+	 * Ends the ongoing sale by setting the only instance to null.
+	 */
 	public static void endSale() {
 		Sale.instance = null;
 	}

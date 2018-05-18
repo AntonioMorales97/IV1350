@@ -18,7 +18,7 @@ public class Startup {
 	 * Starts the application
 	 * 
 	 * @param args
-	 *            The application does not take command line parameters.
+	 *            The application does not take any command line parameters.
 	 */
 	public static void main(String[] args) {
 		try {

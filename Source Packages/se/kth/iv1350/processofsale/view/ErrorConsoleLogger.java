@@ -11,6 +11,9 @@ public class ErrorConsoleLogger implements Logger {
 	ErrorConsoleLogger() {
 	}
 
+	/**
+	 * Prints out the given <code>Exception</code>.
+	 */
 	public void logException(Exception exc) {
 		StringBuilder errorMsg = new StringBuilder();
 		String frame = buildFrame();

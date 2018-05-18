@@ -8,14 +8,11 @@ public class RegistryCreator {
 	private static final RegistryCreator creator = new RegistryCreator();
 	private ItemRegistry itemRegistry = ItemRegistry.getItemRegistry();
 
-	/**
-	 * Creates a <code>RegistryCreator</code>.
-	 */
 	private RegistryCreator() {
 	}
 
 	/**
-	 * @return the <code>RegistryCreator</code> only instance.
+	 * @return the <code>RegistryCreator</code>'s only instance.
 	 */
 	public static RegistryCreator getCreator() {
 		return RegistryCreator.creator;

@@ -108,14 +108,6 @@ public class Controller {
 	}
 
 	/**
-	 * Ends the current {@link Sale}.
-	 */
-	public void endSale() {
-		Sale.endSale();
-		this.sale = null;
-	}
-
-	/**
 	 * Adds a {@link CashRegisterObserver} that will observe the
 	 * {@link CashRegister} for the sale.
 	 * 
@@ -126,4 +118,13 @@ public class Controller {
 	public void addCashRegisterObserver(CashRegisterObserver observer) {
 		this.cashRegister = new CashRegister(observer);
 	}
+	
+	/**
+	 * Ends the current {@link Sale}.
+	 */
+	public void endSale() {
+		Sale.endSale();
+		this.sale = null;
+	}
+
 }
