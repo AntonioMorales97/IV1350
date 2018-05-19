@@ -49,11 +49,11 @@ public class View {
 			logException(exc);
 		}
 
-		invalidItemIdentifierExecution();
+		//invalidItemIdentifierExecution();
 
-		// databaseFailureExecution();
+		databaseFailureExecution();
 
-		endOfSaleExecution();
+		//endOfSaleExecution();
 	}
 
 	private void logException(Exception exc) {
