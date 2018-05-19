@@ -39,29 +39,41 @@ public class View {
 			CurrentInfo currentInfo = controller.enterItems(1, 10);
 			System.out.println(currentInfo);
 		} catch (InvalidIdentifierException exc) {
-			sendExceptionToConsole(exc);
+			logException(exc);
 		}
 
 		try {
 			CurrentInfo currentInfo = controller.enterItem(2);
 			System.out.println(currentInfo);
 		} catch (InvalidIdentifierException exc) {
-			sendExceptionToConsole(exc);
+			logException(exc);
 		}
 
-		// invalidItemIdentifierExecution();
+		invalidItemIdentifierExecution();
 
-		databaseFailureExecution();
+		// databaseFailureExecution();
 
-		//endOfSaleExecution();
+		endOfSaleExecution();
 	}
 
-	private void sendExceptionToConsole(Exception exc) {
+	private void logException(Exception exc) {
+		if (exc instanceof RuntimeException) {
+			logExceptionToConsole(exc);
+			logExceptionToFile(exc);
+		} else if (exc instanceof Exception) {
+			logExceptionToConsole(exc);
+		} else {
+			throw new RuntimeException("Something went wrong when logging exception.");
+		}
+
+	}
+
+	private void logExceptionToConsole(Exception exc) {
 		this.logger = new ErrorConsoleLogger();
 		this.logger.logException(exc);
 	}
 
-	private void sendExceptionToFile(RuntimeException exc) {
+	private void logExceptionToFile(Exception exc) {
 		try {
 			this.logger = new ErrorFileLogger();
 		} catch (IOException e) {
@@ -76,10 +88,9 @@ public class View {
 			CurrentInfo currentInfo = controller.enterItem(databaseFailureItemIdentifier);
 			System.out.println(currentInfo);
 		} catch (RegistryException exc) {
-			sendExceptionToConsole(exc);
-			sendExceptionToFile(exc);
+			logException(exc);
 		} catch (InvalidIdentifierException exc) {
-			sendExceptionToConsole(exc);
+			logException(exc);
 		}
 	}
 
@@ -88,7 +99,7 @@ public class View {
 			CurrentInfo currentInfo = controller.enterItem(-1);
 			System.out.println(currentInfo);
 		} catch (InvalidIdentifierException exc) {
-			sendExceptionToConsole(exc);
+			logException(exc);
 		}
 	}
 
