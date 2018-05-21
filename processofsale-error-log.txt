@@ -1,4 +1,18 @@
-Exception 2018/05/20 00:32:42
+Exception 2018/05/21 16:23:59
+====================
+Could not connect to database.
+====================
+Exception stack trace: 
+se.kth.iv1350.processofsale.model.RegistryException: Could not connect to database.
+	at se.kth.iv1350.processofsale.integration.ItemRegistry.findItem(ItemRegistry.java:47)
+	at se.kth.iv1350.processofsale.model.Sale.getItemDTO(Sale.java:98)
+	at se.kth.iv1350.processofsale.model.Sale.enterItem(Sale.java:69)
+	at se.kth.iv1350.processofsale.controller.Controller.enterItem(Controller.java:53)
+	at se.kth.iv1350.processofsale.view.View.databaseFailureExecution(View.java:88)
+	at se.kth.iv1350.processofsale.view.View.sampleExecution(View.java:54)
+	at se.kth.iv1350.processofsale.startup.Startup.main(Startup.java:29)
+
+Exception 2018/05/21 16:24:05
 ====================
 Could not connect to database.
 ====================
