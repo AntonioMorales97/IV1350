@@ -115,7 +115,7 @@ public class Controller {
 	 *            A class that implements the {@link CashRegisterObserver}
 	 *            interface.
 	 */
-	public void addCashRegisterObserver(CashRegisterObserver observer) {
+	public void addCashRegisterWithObserver(CashRegisterObserver observer) {
 		this.cashRegister = new CashRegister(observer);
 	}
 	

@@ -5,9 +5,9 @@ import java.io.IOException;
 import se.kth.iv1350.processofsale.controller.Controller;
 import se.kth.iv1350.processofsale.model.CurrentInfo;
 import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
-import se.kth.iv1350.processofsale.model.Logger;
 import se.kth.iv1350.processofsale.model.RegistryException;
 import se.kth.iv1350.processofsale.util.ErrorFileLogger;
+import se.kth.iv1350.processofsale.util.Logger;
 
 /**
  * This class is a placeholder for the entire view for this application.
@@ -26,7 +26,7 @@ public class View {
 	 */
 	public View(Controller controller) throws IOException {
 		this.controller = controller;
-		this.controller.addCashRegisterObserver(new TotalRevenueView());
+		this.controller.addCashRegisterWithObserver(new TotalRevenueView());
 	}
 
 	/**
@@ -49,11 +49,11 @@ public class View {
 			logException(exc);
 		}
 
-		//invalidItemIdentifierExecution();
+		invalidItemIdentifierExecution();
 
-		databaseFailureExecution();
+		//databaseFailureExecution();
 
-		//endOfSaleExecution();
+		endOfSaleExecution();
 	}
 
 	private void logException(Exception exc) {
