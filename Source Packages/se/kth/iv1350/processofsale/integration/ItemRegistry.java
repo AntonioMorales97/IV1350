@@ -46,7 +46,7 @@ public class ItemRegistry {
 		if (itemIdentifier == DATABASE_FAILURE) {
 			throw new RegistryException("Could not connect to database.");
 		}
-		throw new InvalidIdentifierException("No item found.");
+		throw new InvalidIdentifierException("The item with identifier: " + itemIdentifier + ", could not be found.");
 	}
 
 	private boolean isSameIdentifier(ItemDTO itemDTO, int identifier) {
