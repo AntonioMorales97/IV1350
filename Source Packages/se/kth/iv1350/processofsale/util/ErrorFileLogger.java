@@ -7,8 +7,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import se.kth.iv1350.processofsale.model.Logger;
-
 /**
  * This class takes care of logging the <code>Exception</code> to a file.
  */

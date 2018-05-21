@@ -1,6 +1,6 @@
 package se.kth.iv1350.processofsale.view;
 
-import se.kth.iv1350.processofsale.model.Logger;
+import se.kth.iv1350.processofsale.util.Logger;
 
 /**
  * A class that is responsible to print out an <code>Exception</code> to the
