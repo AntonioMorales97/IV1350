@@ -10,7 +10,7 @@ import se.kth.iv1350.processofsale.integration.RegistryCreator;
  * the action called from the view.
  */
 public class Controller {
-	private CashRegister cashRegister = new CashRegister();
+	private CashRegister cashRegister;
 	private RegistryCreator creator;
 	private Printer printer;
 	private Sale sale;
@@ -35,18 +35,26 @@ public class Controller {
 	 * sale.
 	 */
 	public void startNewSale() {
-		this.sale = new Sale(cashRegister, creator);
+		if (this.sale == null) {
+			this.sale = new Sale(this.cashRegister, this.creator);
+		}
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Updates the {@link Sale} with the item that has the given item identifier and
 	 * creates a {@link CurrentInfo} with the update.
+=======
+	 * Updates the sale with the item that has the given item identifier and creates
+	 * a {@link CurrentInfo} with the update.
+>>>>>>> seminar4
 	 * 
 	 * @param itemIdentifier
 	 *            An item identifier that is unique and identifies an item.
 	 * @return {@link CurrentInfo} that was created with the updates.
 	 * @throws InvalidIdentifierException
-	 *             when the given item identifier is invalid.
+	 *             when no {@link ItemDTO} could be found with the given item
+	 *             identifier.
 	 */
 	public CurrentInfo enterItem(int itemIdentifier) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = sale.enterItem(itemIdentifier);
@@ -54,16 +62,26 @@ public class Controller {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Updates the {@link Sale} with the item and the quantity of the item. Creates
 	 * a {@link CurrentInfo} with the update.
+=======
+	 * Updates the sale with the item with the given item identifier and also with
+	 * the quantity of that item. Creates a {@link CurrentInfo} with the update.
+>>>>>>> seminar4
 	 * 
 	 * @param itemIdentifier
-	 *            Unique for an item.
+	 *            Unique for an item and identifies an item.
 	 * @param quantity
 	 *            Number of items that has same identifier.
+<<<<<<< HEAD
 	 * @return {@link CurrentInfo} that was created with the updates.
+=======
+	 * @return the {@link CurrentInfo} that was created with the updates.
+>>>>>>> seminar4
 	 * @throws InvalidIdentifierException
-	 *             when the given item identifier is invalid.
+	 *             when no {@link ItemDTO} could be found with the given item
+	 *             identifier.
 	 */
 	public CurrentInfo enterItems(int itemIdentifier, int quantity) throws InvalidIdentifierException {
 		ItemDTO foundItemDTO = sale.enterItems(itemIdentifier, quantity);
@@ -75,9 +93,16 @@ public class Controller {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * A method to use when all items are registered.
 	 * 
 	 * @return the total cost of the current {@link Sale}.
+=======
+	 * A method that returns the total cost and is used by the user to indicate that
+	 * all the items has been registered.
+	 * 
+	 * @return the total cost of the current ongoing {@link Sale}.
+>>>>>>> seminar4
 	 */
 	public double itemRegistrationDone() {
 		double totalCost = this.sale.getTotal();
@@ -98,33 +123,53 @@ public class Controller {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Pays the sale with the given paid amount and prints out a {@link Receipt}.
+=======
+	 * Pays the sale with the given paid amount and prints out a receipt if the paid
+	 * amount is valid.
+>>>>>>> seminar4
 	 * 
 	 * @param paidAmount
 	 *            The amount given by the customer.
 	 * @return the change.
 	 * @throws InvalidAmountException
-	 *             if the paid amount is not enough to pay the sale.
+	 *             whenever the paid amount is invalid to finish a sale.
 	 */
 	public double pay(double paidAmount) throws InvalidAmountException {
 		double change = this.sale.pay(paidAmount);
 		Receipt receipt = this.sale.getReceipt();
 		this.printer.printReceipt(receipt);
+		endSale();
 		return change;
 	}
 
 	/**
+<<<<<<< HEAD
 	 * @return the total amount in the {@link CashRegister} since the start of the
 	 *         program.
+=======
+	 * Adds a {@link CashRegisterObserver} that will observe the
+	 * {@link CashRegister} for the sale.
+	 * 
+	 * @param observer
+	 *            A class that implements the {@link CashRegisterObserver}
+	 *            interface.
+>>>>>>> seminar4
 	 */
-	public double getTotalCashRegister() {
-		return this.cashRegister.getTotal();
+	public void addCashRegisterWithObserver(CashRegisterObserver observer) {
+		this.cashRegister = new CashRegister(observer);
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Ends the current ongoing {@link Sale}.
+=======
+	 * Ends the current {@link Sale}.
+>>>>>>> seminar4
 	 */
 	public void endSale() {
 		this.sale = null;
 	}
+
 }

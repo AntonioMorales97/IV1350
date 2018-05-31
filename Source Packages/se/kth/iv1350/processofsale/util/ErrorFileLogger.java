@@ -8,10 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+<<<<<<< HEAD:Source Packages/se/kth/iv1350/processofsale/util/ErrorLogHandler.java
  * This class takes care of logging all of the <code>Exceptions</code> that are
  * given to a file.
+=======
+ * This class takes care of logging the <code>Exception</code> to a file.
+>>>>>>> seminar4:Source Packages/se/kth/iv1350/processofsale/util/ErrorFileLogger.java
  */
-public class ErrorLogHandler {
+public class ErrorFileLogger implements Logger {
 	private static final String LOG_FILE_NAME = "processofsale-error-log.txt";
 	private PrintWriter writer;
 
@@ -22,7 +26,7 @@ public class ErrorLogHandler {
 	 * @throws IOException
 	 *             when failed to open the log file.
 	 */
-	public ErrorLogHandler() throws IOException {
+	public ErrorFileLogger() throws IOException {
 		this.writer = new PrintWriter(new FileWriter(LOG_FILE_NAME, true));
 	}
 
@@ -32,7 +36,7 @@ public class ErrorLogHandler {
 	 * @param exc
 	 *            The <code>Exception</code> that occurred.
 	 */
-	public void logError(Exception exc) {
+	public void logException(Exception exc) {
 		StringBuilder errorRapport = new StringBuilder();
 		errorRapport.append("Exception " + getDate() + "\r\n");
 		errorRapport.append(getFrame() + "\r\n");

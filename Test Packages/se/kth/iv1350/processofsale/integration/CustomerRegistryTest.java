@@ -16,7 +16,7 @@ public class CustomerRegistryTest {
 
 	@Before
 	public void setUp() {
-		this.customerReg = new CustomerRegistry();
+		this.customerReg = CustomerRegistry.getCustomerRegistry();
 	}
 
 	@After

@@ -9,7 +9,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ErrorHandlerTest {
+import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
+
+public class ErrorConsoleLoggerTest {
+
 	private ByteArrayOutputStream errContent;
 	private PrintStream originalSysOut;
 
@@ -24,14 +27,15 @@ public class ErrorHandlerTest {
 	@After
 	public void tearDown() {
 		this.errContent = null;
-		System.setOut(this.originalSysOut);
+		System.setErr(this.originalSysOut);
 	}
 
 	@Test
-	public void testErrorMessage() {
-		ErrorHandler errorHandler = new ErrorHandler();
+	public void testConsoleLogException() {
+		ErrorConsoleLogger errorConsoleLogger = new ErrorConsoleLogger();
 		String errorMsg = "invalid something";
-		errorHandler.showError(errorMsg);
+		Exception testExc = new InvalidIdentifierException(errorMsg);
+		errorConsoleLogger.logException(testExc);;
 		CharSequence header = "ERROR";
 		CharSequence frame = "-----";
 		CharSequence expMsg = errorMsg;

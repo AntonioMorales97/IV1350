@@ -11,7 +11,11 @@ public class CurrentInfo {
 	private double runningTotal;
 
 	/**
+<<<<<<< HEAD
 	 * Creates a new instance of <code>CurrentInfo</code>.
+=======
+	 * Creates a new instance.
+>>>>>>> seminar4
 	 * 
 	 * @param itemDTO
 	 *            The last {@link ItemDTO} that was added to the sale.
@@ -28,7 +32,7 @@ public class CurrentInfo {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Entered Item\n");
 		sb.append(this.lastEnteredItem + "\n");
-		sb.append("Running total: " + this.runningTotal);
+		sb.append("Running total: " + this.runningTotal+"\n");
 		return sb.toString();
 
 	}

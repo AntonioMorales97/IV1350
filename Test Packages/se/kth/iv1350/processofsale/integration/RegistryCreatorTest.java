@@ -11,7 +11,7 @@ public class RegistryCreatorTest {
 
 	@Before
 	public void setUp() {
-		this.creator = new RegistryCreator();
+		this.creator = RegistryCreator.getCreator();
 	}
 
 	@After
@@ -24,23 +24,11 @@ public class RegistryCreatorTest {
 		ItemRegistry expReg = this.creator.getItemReg();
 		assertTrue("Failed to get ItemRegistry.", expReg instanceof ItemRegistry);
 	}
-
+	
 	@Test
 	public void testGetCustomerReg() {
 		CustomerRegistry expReg = this.creator.getCustomerReg();
 		assertTrue("Failed to get CustomerRegistry.", expReg instanceof CustomerRegistry);
-	}
-	
-	@Test
-	public void testGetAccountingReg() {
-		AccountingRegistry expReg = this.creator.getAccountingReg();
-		assertTrue("Failed to get AccountingRegistry.", expReg instanceof AccountingRegistry);
-	}
-
-	@Test
-	public void testGetInventoryReg() {
-		InventoryRegistry expReg = this.creator.getInventoryReg();
-		assertTrue("Failed to get InventoryRegistry.", expReg instanceof InventoryRegistry);
 	}
 
 }

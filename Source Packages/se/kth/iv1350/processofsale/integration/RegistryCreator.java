@@ -5,15 +5,22 @@ package se.kth.iv1350.processofsale.integration;
  */
 
 public class RegistryCreator {
-	private ItemRegistry itemRegistry = new ItemRegistry();
-	private CustomerRegistry customerRegistry = new CustomerRegistry();
-	private AccountingRegistry accountingRegistry = new AccountingRegistry();
-	private InventoryRegistry inventoryRegistry = new InventoryRegistry();
+	private static final RegistryCreator creator = new RegistryCreator();
+	private ItemRegistry itemRegistry = ItemRegistry.getItemRegistry();
+	private CustomerRegistry customerRegistry = CustomerRegistry.getCustomerRegistry();
+
+	private RegistryCreator() {
+	}
 
 	/**
+<<<<<<< HEAD
 	 * Creates a <code>RegistryCreator</code> instance.
+=======
+	 * @return the <code>RegistryCreator</code>'s only instance.
+>>>>>>> seminar4
 	 */
-	public RegistryCreator() {
+	public static RegistryCreator getCreator() {
+		return RegistryCreator.creator;
 	}
 
 	/**
@@ -22,13 +29,14 @@ public class RegistryCreator {
 	public ItemRegistry getItemReg() {
 		return this.itemRegistry;
 	}
-
+	
 	/**
 	 * @return the {@link CustomerRegistry}.
 	 */
 	public CustomerRegistry getCustomerReg() {
 		return this.customerRegistry;
 	}
+<<<<<<< HEAD
 
 	/**
 	 * @return the {@link AccountingRegistry}.
@@ -43,5 +51,7 @@ public class RegistryCreator {
 	public InventoryRegistry getInventoryReg() {
 		return this.inventoryRegistry;
 	}
+=======
+>>>>>>> seminar4
 
 }

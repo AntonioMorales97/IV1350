@@ -15,25 +15,21 @@ import se.kth.iv1350.processofsale.integration.RegistryCreator;
 public class CostsTest {
 	private int BANANA_ID = 1;
 	private double BANANA_PRICE;
-	private String CUSTOMER_ID = "0123456789";
 	private Costs costs;
-	private RegistryCreator creator = new RegistryCreator();
+	private RegistryCreator creator = RegistryCreator.getCreator();
 	private Item oneBanana;
 	private Item twoBananas;
+	private String CUSTOMER_ID = "0123456789";
 
 	@Before
-	public void setUpTest() {
+	public void setUpTest() throws InvalidIdentifierException {
 		this.costs = new Costs();
 		ItemRegistry itemReg = creator.getItemReg();
-		try {
-			ItemDTO bananaDTO = itemReg.findItem(BANANA_ID);
-			this.BANANA_PRICE = bananaDTO.getPrice();
-			this.oneBanana = new Item(bananaDTO);
-			this.twoBananas = new Item(bananaDTO, 2);
-		} catch (InvalidIdentifierException e) {
-			fail("Got exception.");
-			e.printStackTrace();
-		}
+		ItemDTO bananaDTO = itemReg.findItem(BANANA_ID);
+		this.BANANA_PRICE = bananaDTO.getPrice();
+		this.oneBanana = new Item(bananaDTO);
+		this.twoBananas = new Item(bananaDTO, 2);
+
 	}
 
 	@After
@@ -71,5 +67,4 @@ public class CostsTest {
 		}
 
 	}
-
 }

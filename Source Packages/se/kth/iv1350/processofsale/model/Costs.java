@@ -56,4 +56,5 @@ class Costs {
 		this.discountAmount = this.totalCost * (discountPercent / 100);
 		this.totalCost -= this.discountAmount;
 	}
+
 }

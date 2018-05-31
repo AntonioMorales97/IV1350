@@ -14,6 +14,7 @@ import se.kth.iv1350.processofsale.model.InvalidAmountException;
 import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
 import se.kth.iv1350.processofsale.model.Receipt;
 import se.kth.iv1350.processofsale.model.Sale;
+import se.kth.iv1350.processofsale.view.TotalRevenueView;
 
 public class PrinterTest {
 	private int VALID_ITEM_ID = 1;
@@ -35,25 +36,16 @@ public class PrinterTest {
 	}
 
 	@Test
-	public void testPrintReceipt() {
-		Printer printer = new Printer();
-		CashRegister cashReg = new CashRegister();
-		RegistryCreator creator = new RegistryCreator();
-		Sale sale = new Sale(cashReg, creator);
-		ItemDTO item = null;
+	public void testPrintReceipt(){
 		try {
-			item = sale.enterItem(VALID_ITEM_ID);
-			sale.pay(20);
-			Receipt receipt = sale.getReceipt();
-			printer.printReceipt(receipt);
-		} catch (InvalidAmountException e) {
-			e.printStackTrace();
-			fail("Got exception.");
-		} catch (InvalidIdentifierException e) {
-			e.printStackTrace();
-			fail("Got exception.");
-		}
-
+		Printer printer = new Printer();
+		CashRegister cashReg = new CashRegister(new TotalRevenueView());
+		RegistryCreator creator = RegistryCreator.getCreator();
+		Sale sale = new Sale(cashReg, creator);
+		ItemDTO item = sale.enterItem(VALID_ITEM_ID);
+		sale.pay(20);
+		Receipt receipt = sale.getReceipt();
+		printer.printReceipt(receipt);
 		String result = this.outContent.toString();
 		CharSequence totalCost = String.format("%.2f", sale.getTotal());
 		boolean containsTotal = result.contains(totalCost);
@@ -70,6 +62,13 @@ public class PrinterTest {
 		assertTrue("Wrong item info format printed out.", containsItemInfo);
 		boolean receiptHeader = result.contains("RECEIPT");
 		assertTrue("Wrong receipt header printed out.", receiptHeader);
+		} catch (InvalidIdentifierException exc) {
+			exc.printStackTrace();
+			fail("Got exception.");
+		} catch (InvalidAmountException exc) {
+			exc.printStackTrace();
+			fail("Got exception.");
+		}
 	}
 
 }

@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import se.kth.iv1350.processofsale.integration.ItemDTO;
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
+import se.kth.iv1350.processofsale.view.TotalRevenueView;
 
 public class ReceiptTest {
 	private Sale testSale;
@@ -15,8 +16,8 @@ public class ReceiptTest {
 
 	@Before
 	public void setUp() {
-		CashRegister cashRegister = new CashRegister();
-		RegistryCreator creator = new RegistryCreator();
+		CashRegister cashRegister = new CashRegister(new TotalRevenueView());
+		RegistryCreator creator = RegistryCreator.getCreator();
 		this.testSale = new Sale(cashRegister, creator);
 	}
 
@@ -26,7 +27,7 @@ public class ReceiptTest {
 	}
 
 	@Test
-	public void testReceipt() {
+	public void testReceipt() throws InvalidIdentifierException, InvalidAmountException {
 		try {
 			ItemDTO item = this.testSale.enterItem(VALID_ITEM_ID);
 			this.testSale.pay(20);

@@ -6,12 +6,20 @@ package se.kth.iv1350.processofsale.model;
  */
 public class CashRegister {
 	private double totalCashPaid = 0;
+	private CashRegisterObserver observer;
 
-	public CashRegister() {
+	/**
+	 * Creates an instance of <code>CashRegister</code>
+	 * 
+	 * @param observer
+	 */
+	public CashRegister(CashRegisterObserver observer) {
+		this.observer = observer;
 	}
 
 	void addPayment(CashPayment payment) {
 		this.totalCashPaid += payment.getTotalCost();
+		this.observer.addPayment(payment);
 	}
 
 	/**

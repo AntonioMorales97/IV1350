@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
+import se.kth.iv1350.processofsale.view.TotalRevenueView;
 
 public class SaleTest {
 	private Sale sale;
@@ -15,9 +16,10 @@ public class SaleTest {
 
 	@Before
 	public void setUp() {
-		RegistryCreator creator = new RegistryCreator();
-		CashRegister cashRegister = new CashRegister();
+		RegistryCreator creator = RegistryCreator.getCreator();
+		CashRegister cashRegister = new CashRegister(new TotalRevenueView());
 		this.sale = new Sale(cashRegister, creator);
+		assertTrue("Failed to create instance of Sale.", this.sale instanceof Sale);
 	}
 
 	@After
@@ -39,7 +41,7 @@ public class SaleTest {
 		}
 
 	}
-
+	
 	@Test
 	public void testEnterItems() {
 		try {
@@ -56,7 +58,7 @@ public class SaleTest {
 		}
 
 	}
-
+	
 	@Test
 	public void testDiscountRequest() {
 		try {
@@ -100,16 +102,5 @@ public class SaleTest {
 			fail("Got exception.");
 		}
 	}
-	
-	@Test (expected = InvalidAmountException.class)
-	public void testInvalidGetReceipt() throws InvalidAmountException {
-		try {
-			this.sale.enterItem(VALID_ITEM_ID);
-			this.sale.getReceipt();
-		} catch (InvalidIdentifierException e) {
-			e.printStackTrace();
-			fail("Got exception.");
-		}
-		
-	}
+
 }

@@ -8,9 +8,14 @@ import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
  */
 
 public class CustomerRegistry {
+	private static final CustomerRegistry CUSTOMER_REGISTRY = new CustomerRegistry();
 	private CustomerDTO[] customers = { new CustomerDTO("Antonio", "0123456789", 10) };
 
-	CustomerRegistry() {
+	private CustomerRegistry() {
+	}
+	
+	static CustomerRegistry getCustomerRegistry() {
+		return CustomerRegistry.CUSTOMER_REGISTRY;
 	}
 
 	/**
@@ -28,7 +33,7 @@ public class CustomerRegistry {
 				return customers[i];
 			}
 		}
-		throw new InvalidIdentifierException("Invalid ID");
+		throw new InvalidIdentifierException("The ID: "+id+", was invalid.");
 	}
 
 	private boolean isSameId(CustomerDTO customer, String id) {

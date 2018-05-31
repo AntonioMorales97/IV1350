@@ -15,16 +15,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
+import se.kth.iv1350.processofsale.model.RegistryException;
 
-public class ErrorLogHandlerTest {
-	private ErrorLogHandler logHandler;
+public class ErrorFileLoggerTest {
+
+	private ErrorFileLogger fileLogger;
 	private String fileName = "processofsale-error-log.txt";
 
 	@Before
 	public void setUp() {
 		try {
-			this.logHandler = new ErrorLogHandler();
+			this.fileLogger = new ErrorFileLogger();
 		} catch (IOException exc) {
 			exc.printStackTrace();
 			fail("Unable to create a log handler.");
@@ -33,20 +34,21 @@ public class ErrorLogHandlerTest {
 
 	@After
 	public void tearDown() {
-		logHandler = null;
+		this.fileLogger = null;
 		File logFile = new File(fileName);
 		logFile.delete();
 	}
 
 	@Test
-	public void testLogError() throws FileNotFoundException {
-		InvalidIdentifierException exc = new InvalidIdentifierException("Invalid item identifier.");
-		logHandler.logError(exc);
-		String expResultMsg = "Invalid item identifier.";
+	public void testFileLogException() throws FileNotFoundException {
+		String expResultMsg = "Something failed in registry.";
+		RuntimeException testExc = new RegistryException(expResultMsg);
+		this.fileLogger.logException(testExc);;
+		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		String expDate = dateFormat.format(date).toString();
-		String expStackTrace = "se.kth.iv1350.processofsale.util.ErrorLogHandlerTest.testLogError";
+		String expStackTrace = "se.kth.iv1350.processofsale.util.ErrorFileLoggerTest.testFileLogException";
 		boolean containsExpMsg = containsExpectedString(expResultMsg);
 		assertTrue("Wrong exception message.", containsExpMsg);
 		boolean containsExpDate = containsExpectedString(expDate);

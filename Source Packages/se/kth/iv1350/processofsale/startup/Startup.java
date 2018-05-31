@@ -18,12 +18,11 @@ public class Startup {
 	 * Starts the application
 	 * 
 	 * @param args
-	 *            The application does not take command line parameters.
+	 *            The application does not take any command line parameters.
 	 */
-
 	public static void main(String[] args) {
 		try {
-			RegistryCreator creator = new RegistryCreator();
+			RegistryCreator creator = RegistryCreator.getCreator();
 			Printer printer = new Printer();
 			Controller controller = new Controller(creator, printer);
 			View view = new View(controller);
@@ -32,6 +31,7 @@ public class Startup {
 			System.err.println("Start up failed.");
 			exc.printStackTrace();
 		}
+
 	}
 
 }
