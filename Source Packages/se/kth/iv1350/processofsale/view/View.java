@@ -4,13 +4,16 @@ import java.io.IOException;
 
 import se.kth.iv1350.processofsale.controller.Controller;
 import se.kth.iv1350.processofsale.model.CurrentInfo;
+import se.kth.iv1350.processofsale.model.InvalidAmountException;
 import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
 import se.kth.iv1350.processofsale.model.RegistryException;
 import se.kth.iv1350.processofsale.util.ErrorFileLogger;
 import se.kth.iv1350.processofsale.util.Logger;
 
 /**
- * This class is a placeholder for the entire view for this application.
+ * This class is a placeholder for the entire view for this application. But
+ * since it does not exist a real view, the operations are hard coded and
+ * divided into private methods.
  */
 public class View {
 	private Controller controller;
@@ -49,11 +52,13 @@ public class View {
 			logException(exc);
 		}
 
-		//invalidItemIdentifierExecution();
+		// databaseFailureExecution();
 
-		databaseFailureExecution();
+		invalidItemIdentifierExecution();
+		invalidPaymentExecution();
+		invalidCustomerIDExecution();
 
-		//endOfSaleExecution();
+		endOfSaleExecutionCall();
 	}
 
 	private void logException(Exception exc) {
@@ -103,10 +108,36 @@ public class View {
 		}
 	}
 
-	private void endOfSaleExecution() {
+	private void invalidPaymentExecution() {
+		try {
+			controller.pay(10);
+		} catch (InvalidAmountException exc) {
+			logException(exc);
+		}
+	}
+
+	private void invalidCustomerIDExecution() {
+		try {
+			controller.discountRequest("-1");
+		} catch (InvalidIdentifierException exc) {
+			logException(exc);
+		}
+	}
+
+	private void endOfSaleExecutionCall() {
+		try {
+			endOfSaleExecution();
+		} catch (InvalidIdentifierException | InvalidAmountException exc) {
+			logException(exc);
+		}
+	}
+
+	private void endOfSaleExecution() throws InvalidIdentifierException, InvalidAmountException {
 		double totalCost = controller.itemRegistrationDone();
 		System.out.println("Total cost: " + String.format("%.2f", totalCost) + "\n");
-		controller.pay(150);
+		totalCost = controller.discountRequest("0123456789");
+		System.out.println("Total cost: " + String.format("%.2f", totalCost) + "\n");
+		controller.pay(120);
 		controller.endSale();
 	}
 }

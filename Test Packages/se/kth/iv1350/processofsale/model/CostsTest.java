@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import se.kth.iv1350.processofsale.integration.CustomerDTO;
+import se.kth.iv1350.processofsale.integration.CustomerRegistry;
 import se.kth.iv1350.processofsale.integration.ItemDTO;
 import se.kth.iv1350.processofsale.integration.ItemRegistry;
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
@@ -17,6 +19,7 @@ public class CostsTest {
 	private RegistryCreator creator = RegistryCreator.getCreator();
 	private Item oneBanana;
 	private Item twoBananas;
+	private String CUSTOMER_ID = "0123456789";
 
 	@Before
 	public void setUpTest() throws InvalidIdentifierException {
@@ -46,4 +49,22 @@ public class CostsTest {
 		assertNotEquals("Running total is the same as total cost.", totalCost, runningTotal);
 	}
 
+	@Test
+	public void testEnterDiscount() {
+		CustomerRegistry customerReg = creator.getCustomerReg();
+		try {
+			CustomerDTO customer = customerReg.findCustomer(CUSTOMER_ID);
+			this.costs.increaseRunningTotal(oneBanana);
+			double totalCost = this.costs.getTotalCost();
+			this.costs.enterDiscount(customer);
+			double newTotalCost = this.costs.getTotalCost();
+			boolean exp = newTotalCost < totalCost;
+			assertTrue("Wrong expected total cost.", exp);
+
+		} catch (InvalidIdentifierException e) {
+			fail("Got exception.");
+			e.printStackTrace();
+		}
+
+	}
 }

@@ -9,7 +9,8 @@ public class CashRegister {
 	private CashRegisterObserver observer;
 
 	/**
-	 * Creates an instance of <code>CashRegister</code> 
+	 * Creates an instance of <code>CashRegister</code>
+	 * 
 	 * @param observer
 	 */
 	public CashRegister(CashRegisterObserver observer) {

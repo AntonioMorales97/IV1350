@@ -10,6 +10,7 @@ import se.kth.iv1350.processofsale.integration.ItemDTO;
 import se.kth.iv1350.processofsale.integration.Printer;
 import se.kth.iv1350.processofsale.integration.RegistryCreator;
 import se.kth.iv1350.processofsale.model.CurrentInfo;
+import se.kth.iv1350.processofsale.model.InvalidAmountException;
 import se.kth.iv1350.processofsale.model.InvalidIdentifierException;
 import se.kth.iv1350.processofsale.view.TotalRevenueView;
 
@@ -24,6 +25,7 @@ public class ControllerTest {
 		RegistryCreator creator = RegistryCreator.getCreator();
 		Printer printer = new Printer();
 		this.controller = new Controller(creator, printer);
+		this.controller.addCashRegisterWithObserver(new TotalRevenueView());
 		this.controller.startNewSale();
 
 	}
@@ -91,14 +93,18 @@ public class ControllerTest {
 		try {
 			this.controller.enterItem(VALID_ITEM_ID);
 			double totalCost = this.controller.itemRegistrationDone();
-			double paidAmount = 20;
+			double paidAmount = 200;
 			double actChange = this.controller.pay(paidAmount);
 			double expChange = paidAmount - totalCost;
-			assertEquals("Wrong change.", expChange, actChange, 0.0f);
-		} catch (InvalidIdentifierException exc) {
-			exc.printStackTrace();
+			assertEquals("Wrong actuall change.", expChange, actChange, 0.0f);
+		} catch (InvalidIdentifierException e) {
+			e.printStackTrace();
+			fail("Got exception.");
+		} catch (InvalidAmountException e) {
+			e.printStackTrace();
 			fail("Got exception.");
 		}
+
 	}
 	
 	@Test(expected = NullPointerException.class)

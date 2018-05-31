@@ -12,43 +12,26 @@ import se.kth.iv1350.processofsale.integration.*;
  */
 
 public class Sale {
-	private static Sale instance = null;
 	private List<Item> enteredItems = new ArrayList<>();
 	private CashRegister cashRegister;
 	private Costs costs = new Costs();
 	private RegistryCreator creator;
 	private CashPayment cashPayment;
+	private CustomerDTO customer;
 	private String date;
 
-	private Sale(CashRegister cashRegister, RegistryCreator creator) {
+	/**
+	 * Creates a <code>Sale</code> instance and records the date.
+	 * 
+	 * @param cashRegister
+	 *            The {@link CashRegister} object that will be updated by the sale.
+	 * @param creator
+	 *            The {@link RegistryCreator} object that will be used by this sale.
+	 */
+	public Sale(CashRegister cashRegister, RegistryCreator creator) {
 		this.cashRegister = cashRegister;
 		this.creator = creator;
 		recordDate();
-	}
-
-	/**
-	 * A method to access the current instance of <code>Sale</code> or create one if
-	 * it is <code>null<code>.
-	 * @param cashRegister The {@link CashRegister} that the <code>Sale</code> will
-	 *            update.
-	 * 
-	 * @param creator
-	 *            The {@link RegistryCreator} that the Sale will be using.
-	 * @return The <code>Sale</code>-instance which represents the current ongoing
-	 *         sale.
-	 */
-	public static Sale getSale(CashRegister cashRegister, RegistryCreator creator) {
-		if (Sale.instance == null) {
-			Sale.instance = new Sale(cashRegister, creator);
-		}
-		return Sale.instance;
-	}
-
-	/**
-	 * Ends the ongoing sale by setting the only instance to null.
-	 */
-	public static void endSale() {
-		Sale.instance = null;
 	}
 
 	/**
@@ -149,23 +132,47 @@ public class Sale {
 	}
 
 	/**
+	 * Updates the sale with a discount if a customer is found with the given ID
+	 * number.
+	 * 
+	 * @param id
+	 *            ID number as a <code>String</code>.
+	 * @return the updated total cost for the <code>Sale</code>.
+	 * @throws InvalidIdentifierException
+	 *             if no {@link CustomerDTO} with the given ID could be found.
+	 */
+	public double discountRequest(String id) throws InvalidIdentifierException {
+		CustomerDTO customer = getCustomerDTO(id);
+		this.costs.enterDiscount(customer);
+		this.customer = customer;
+		return this.costs.getTotalCost();
+	}
+
+	private CustomerDTO getCustomerDTO(String id) throws InvalidIdentifierException {
+		CustomerRegistry customerReg = creator.getCustomerReg();
+		CustomerDTO foundCustomer = customerReg.findCustomer(id);
+		return foundCustomer;
+	}
+
+	/**
 	 * Calculates if the given payment is valid for this sale and updates the cash
 	 * register for this sale.
 	 * 
 	 * @param paidAmount
 	 *            The paid amount from the customer.
 	 * @return the change after the payment.
+	 * @throws InvalidAmountException
+	 *             whenever the paid amount is invalid to finish the sale.
 	 */
-	public double pay(double paidAmount) {
-		double totalCost = getTotal();
+	public double pay(double paidAmount) throws InvalidAmountException {
 		if (this.cashPayment == null) {
-			this.cashPayment = new CashPayment(paidAmount, totalCost, this.cashRegister);
+			this.cashPayment = new CashPayment(paidAmount, this.costs, this.cashRegister);
 		} else {
-			this.cashPayment.addPaidAmount(paidAmount);
+			this.cashPayment.updatePayment(paidAmount, this.costs);
 		}
 		double change = this.cashPayment.getChange();
 		if (change < 0) {
-			return change;
+			throw new InvalidAmountException("Remaining payment: ", change);
 		}
 		this.cashPayment.updateCashRegister();
 		return change;
@@ -175,7 +182,7 @@ public class Sale {
 	 * @return the created {@link Receipt} for the sale.
 	 */
 	public Receipt getReceipt() {
-		Receipt receipt = new Receipt(enteredItems, date, costs, cashPayment);
+		Receipt receipt = new Receipt(customer, enteredItems, date, costs, cashPayment);
 		return receipt;
 
 	}

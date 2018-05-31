@@ -7,6 +7,7 @@ package se.kth.iv1350.processofsale.integration;
 public class RegistryCreator {
 	private static final RegistryCreator creator = new RegistryCreator();
 	private ItemRegistry itemRegistry = ItemRegistry.getItemRegistry();
+	private CustomerRegistry customerRegistry = CustomerRegistry.getCustomerRegistry();
 
 	private RegistryCreator() {
 	}
@@ -23,6 +24,13 @@ public class RegistryCreator {
 	 */
 	public ItemRegistry getItemReg() {
 		return this.itemRegistry;
+	}
+	
+	/**
+	 * @return the {@link CustomerRegistry}.
+	 */
+	public CustomerRegistry getCustomerReg() {
+		return this.customerRegistry;
 	}
 
 }

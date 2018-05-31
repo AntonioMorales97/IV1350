@@ -9,15 +9,16 @@ public class CashPayment {
 	private double change;
 	private CashRegister cashRegister;
 
-	CashPayment(double paidAmount, double totalCost, CashRegister cashRegister) {
+	CashPayment(double paidAmount, Costs costs, CashRegister cashRegister) {
 		this.paidAmount = paidAmount;
-		this.totalCost = totalCost;
+		this.totalCost = costs.getTotalCost();
 		this.change = paidAmount - totalCost;
 		this.cashRegister = cashRegister;
 	}
 
-	void addPaidAmount(double amount) {
+	void updatePayment(double amount, Costs costs) {
 		this.paidAmount += amount;
+		this.totalCost = costs.getTotalCost();
 		this.change = paidAmount - totalCost;
 	}
 
@@ -38,7 +39,7 @@ public class CashPayment {
 	}
 
 	void updateCashRegister() {
-		if (this.change > 0)
+		if (this.change >= 0)
 			this.cashRegister.addPayment(this);
 	}
 }

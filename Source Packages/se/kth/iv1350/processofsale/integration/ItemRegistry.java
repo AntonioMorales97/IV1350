@@ -16,10 +16,7 @@ public class ItemRegistry {
 	private ItemRegistry() {
 	}
 
-	/**
-	 * @return the only instance of <code>ItemRegistry</code>.
-	 */
-	public static ItemRegistry getItemRegistry() {
+	static ItemRegistry getItemRegistry() {
 		return ItemRegistry.ITEM_REGISTRY;
 	}
 
